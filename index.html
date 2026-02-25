@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Jelyn Hermosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white: #ffffff; --surface: #f5f5f7; --ink: #1d1d1f;
+      --gray-1: #6e6e73; --gray-2: #a1a1a6; --rule: #d2d2d7;
+      --accent: #0071e3; --accent-lt: #e8f0fe;
+      --radius-sm: 10px; --radius-lg: 18px;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: var(--font); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.72s var(--ease), transform 0.72s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+
+    .site { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+
+    /* ══ HERO ══ */
+    .hero {
+      position: relative;
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .hero__content { position: relative; }
+
+    /* ── Decorative stamp (avatar) above eyebrow ── */
+    .hero__stamp {
+      width: 400px;
+      height: 250px;
+      margin: -70px 0 0 0;
+      overflow: hidden;
+    }
+
+    .hero__stamp-img {
+      width: 400px;
+      height: auto;
+      display: block;
+      transform: translate(-100px);
+      transform-origin: top left;
+    }
+
+    /* Keep eyebrow & name above the stamp if stamp overlaps */
+    .hero__eyebrow,
+    .hero__name { position: relative; z-index: 2; }
+
+    .hero__eyebrow {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .hero__name {
+      font-size: clamp(2rem, 5.5vw, 3.2rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.05;
+      color: var(--ink); margin-bottom: 22px;
+    }
+
+    /* ── Word cycle ── */
+    .hero__bio {
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+      font-weight: 300; line-height: 1.7;
+      color: var(--gray-1); max-width: 580px;
+      margin-bottom: 16px;
+    }
+    .cycle-clip {
+      display: inline-block;
+      overflow: hidden;
+      height: 1.7em;
+      vertical-align: bottom;
+      position: relative;
+    }
+    .cycle-word {
+      display: block;
+      position: absolute;
+      left: 0; bottom: 0;
+      white-space: nowrap;
+      font-weight: 600;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateY(110%);
+      transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
+      will-change: transform, opacity;
+    }
+    .cycle-word.active { opacity: 1; transform: translateY(0); }
+    .cycle-word.exit   { opacity: 0; transform: translateY(-110%); }
+
+    /* ══ ACCORDION ══ */
+    .section { border-bottom: 1px solid var(--rule); }
+    .section__panel { overflow-anchor: none; }
+
+    .section__trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 28px 0; text-align: left; gap: 16px;
+      -webkit-tap-highlight-color: transparent; outline: none;
+    }
+    .section__trigger:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px;
+    }
+    .section__left { display: flex; align-items: baseline; gap: 12px; }
+
+    .section__label {
+      font-family: var(--font);
+      font-size: clamp(1rem, 2.4vw, 1.15rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      transition: color 0.2s var(--ease);
+    }
+    .section__trigger:hover .section__label { color: var(--accent); }
+
+    .section__sub {
+      font-size: 12px; font-weight: 400; color: var(--gray-2);
+      font-family: var(--font);
+      transition: opacity 0.2s;
+    }
+    .section.is-open .section__sub { opacity: 0; }
+
+    .section__chevron {
+      flex-shrink: 0; width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--surface);
+      transition: background 0.25s var(--ease), transform 0.42s var(--ease);
+    }
+    .section__chevron svg { width: 10px; height: 10px; color: var(--gray-1); transition: color 0.2s; }
+    .section.is-open .section__chevron { transform: rotate(180deg); background: var(--accent); }
+    .section.is-open .section__chevron svg { color: white; }
+
+    .section__panel {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s var(--ease); overflow: hidden;
+    }
+    .section.is-open .section__panel { grid-template-rows: 1fr; }
+    .section__panel-inner { overflow: hidden; }
+    .section__content {
+      padding-bottom: 40px;
+      opacity: 0;
+      transition: opacity 0.38s var(--ease) 0.1s;
+    }
+    .section.is-open .section__content { opacity: 1; }
+
+    /* ── Hero expand block ── */
+    .hero__expand { margin-bottom: 16px; }
+    .hero__expand-body {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--gray-1);
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Chips ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.01em;
+      color: var(--accent); background: var(--accent-lt);
+      border-radius: 999px; padding: 5px 13px;
+    }
+
+    /* ── Section 2 ── */
+    .timeline { display: flex; flex-direction: column; }
+    .entry { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+    .entry:last-of-type { border-bottom: none; }
+    .entry__top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 4px;
+    }
+    .entry__company { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+    .entry__badge { font-size: 11px; font-weight: 400; color: var(--gray-2); margin-left: 6px; }
+    .entry__period { font-size: 12px; font-weight: 400; color: var(--gray-2); white-space: nowrap; }
+    .entry__role { font-size: 13px; font-weight: 400; color: var(--gray-1); margin-bottom: 18px; }
+    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .stat { background: var(--surface); border-radius: var(--radius-sm); padding: 8px 14px; text-align: center; min-width: 90px; }
+    .stat__num { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin-bottom: 3px; }
+    .stat__label { font-size: 10px; font-weight: 400; color: var(--gray-1); letter-spacing: 0.02em; text-transform: uppercase; }
+    .wins { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .wins li { font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--gray-1); padding-left: 14px; position: relative; }
+    .wins li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .edu { margin-top: 32px; padding: 20px; background: var(--surface); border-radius: var(--radius-lg); }
+    .edu__label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-2); margin-bottom: 10px; }
+    .edu__school { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .edu__detail { font-size: 13px; font-weight: 400; color: var(--gray-1); line-height: 1.6; }
+    .edu__accent { color: var(--accent); }
+
+    /* ── Hero testimonial strip ── */
+    .hero-quotes { margin-top: 28px; }
+    .quote-card {
+      flex: 0 0 auto;
+      width: min(290px, 72vw);
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      position: relative;
+    }
+    .quote-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+    .quote-card__text {
+      font-size: 13px; font-weight: 400; line-height: 1.7;
+      color: var(--gray-1); flex: 1;
+    }
+    .quote-card__name {
+      font-size: 12px; font-weight: 600; color: var(--ink);
+    }
+    .quote-card__role {
+      font-size: 11px; font-weight: 400; color: var(--gray-2); margin-top: 1px;
+    }
+
+    /* ── Section 3 — prose style ── */
+    .now-prose {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 560px;
+    }
+    .now-prose p {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--gray-1);
+    }
+    .now-prose p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .now-prose p:first-child {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ── Footer ── */
+    .footer { padding: 40px 0 64px; display: flex; flex-direction: column; gap: 10px; }
+    .footer__row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer__link { font-size: 13px; font-weight: 400; color: var(--gray-1); text-decoration: none; transition: color 0.15s; }
+    .footer__link:hover { color: var(--accent); }
+    .footer__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--rule); }
+    .footer__note {
+      font-size: 12px;
+      color: var(--gray-2);
+    }
+
+    /* ── Entry visual — horizontal scroll strip ── */
+    .entry__visual { margin-top: 20px; }
+    .visual-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 6px 4px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .visual-strip::-webkit-scrollbar { display: none; }
+
+    .visual-card {
+      flex: 0 0 auto;
+      width: min(420px, 78vw);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      position: relative;
+    }
+    .visual-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+    .visual-card img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .visual-card__label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--gray-2);
+      padding: 10px 14px 8px;
+      border-bottom: 1px solid var(--rule);
+      background: var(--surface);
+    }
+
+    /* ── Lightbox trigger ── */
+    .lb-trigger { cursor: zoom-in; display: block; width: 100%; }
+
+    /* ── GIF placeholder ── */
+    .gif-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gif-placeholder::after {
+      content: 'Preview coming soon';
+      font-size: 11px;
+      font-family: var(--font);
+      color: var(--gray-2);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Visual strip wrap ── */
+    .visual-strip-wrap { position: relative; }
+    .visual-strip-wrap::after {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 80px; height: 100%;
+      background: linear-gradient(to right, transparent, var(--white));
+      pointer-events: none; border-radius: 0 12px 12px 0; transition: opacity 0.3s;
+    }
+    .visual-strip-wrap.at-end::after { opacity: 0; }
+    .visual-strip-wrap::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 80px; height: 100%;
+      background: linear-gradient(to left, transparent, var(--white));
+      pointer-events: none; border-radius: 12px 0 0 12px; transition: opacity 0.3s;
+      opacity: 0; z-index: 1;
+    }
+    .visual-strip-wrap:not(.at-start)::before { opacity: 1; }
+    .strip-arrow, .strip-arrow-left {
+      position: absolute; top: 50%;
+      transform: translateY(-50%);
+      background: white; border: 1px solid var(--rule); border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: opacity 0.3s, transform 0.2s; z-index: 2;
+    }
+    .strip-arrow { right: 10px; }
+    .strip-arrow-left { left: 10px; }
+    .strip-arrow svg, .strip-arrow-left svg { width: 10px; height: 10px; color: var(--ink); }
+    .strip-arrow:hover { transform: translateY(-50%) scale(1.08); }
+    .strip-arrow-left:hover { transform: translateY(-50%) scale(1.08); }
+    .visual-strip-wrap.at-end .strip-arrow { opacity: 0; pointer-events: none; }
+    .visual-strip-wrap.at-start .strip-arrow-left { opacity: 0; pointer-events: none; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82); z-index: 1000;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 88vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .lb-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: white;
+    }
+    .lb-close svg { width: 12px; height: 12px; }
+
+    /* ─────────────────────────────────────────────
+       MOBILE SPLASH: show image full-screen, then morph it to stamp position
+       ───────────────────────────────────────────── */
+    .hero-splash { display: none; }
+
+    @media (max-width: 600px) {
+      body.has-splash {
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      /* Hide the page until splash dismissed */
+      body.has-splash .site {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+      }
+
+      /* Measuring state: invisible but naturally positioned for rect queries */
+      body.splash-measuring .site {
+        opacity: 0;
+        transform: none;
+        pointer-events: none;
+        transition: none;
+      }
+
+      /* Page visible after splash */
+      body.splash-done .site {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+      }
+
+      /* Fullscreen overlay */
+      .hero-splash {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: var(--white);
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        pointer-events: none;
+      }
+
+      /* Big face */
+      .hero-splash__img {
+        width: min(92vw, 520px);
+        height: auto;
+        display: block;
+        transform: translate(-110px, 0) scale(1.65);
+        transform-origin: top left;
+      }
+
+      /* Arrow down hint */
+      .hero-splash__arrow {
+        position: absolute;
+        bottom: 22px;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.9;
+        animation: bounce 1.4s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .hero-splash__arrow svg {
+        width: 22px;
+        height: 22px;
+        color: var(--gray-2);
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(8px); }
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .site { padding: 0 20px; }
+      .hero { padding: 64px 0 56px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none !important; }
+      .hero-splash__arrow { animation: none !important; }
+      body.has-splash .site,
+      body.splash-done .site { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE splash overlay -->
+  <div class="hero-splash" id="heroSplash" aria-hidden="true">
+    <img src="avatar.png" alt="" class="hero-splash__img" />
+    <div class="hero-splash__arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 5v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M7 13l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="site">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" id="hero">
+      <div class="hero__content">
+
+        <!-- Decorative stamp above eyebrow (desktop/tablet) -->
+        <div class="hero__stamp" aria-hidden="true">
+          <img src="avatar.png" alt="" class="hero__stamp-img" />
+        </div>
+
+        <p class="hero__eyebrow reveal">Senior Product Manager</p>
+        <h1 class="hero__name reveal reveal-d1">Jelyn Hermosa</h1>
+
+        <div class="hero__body-row">
+          <div class="hero__text">
+            <p class="hero__bio reveal reveal-d2" id="heroBio">
+              I figure out what to build, get everyone on the same page, and make sure it ships.
+              I thrive in the&#32;<span class="cycle-clip" id="cycleClip"
+                ><span class="cycle-word active">messy middle.</span
+                ><span class="cycle-word">early-stage chaos.</span
+                ><span class="cycle-word">compliance-heavy work.</span
+                ><span class="cycle-word">cross-functional grind.</span
+              >
+                <span class="cycle-word">"we're figuring it out" phase.</span
+              >
+                <span class="cycle-word">high-stakes ambiguity.</span
+                ></span>
+            </p>
+
+            <div class="hero__expand reveal reveal-d3">
+              <p class="hero__expand-body">I've built products across fintech, Web3, media, and nonprofit. I do that with autonomy and a high tolerance for ambiguity.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chips reveal" style="margin-top:16px;">
+          <span class="chip">0→1 Launches</span>
+          <span class="chip">Platform &amp; Ecosystem</span>
+          <span class="chip">Regulated Products</span>
+          <span class="chip">Cross-functional Leadership</span>
+          <span class="chip">Fintech / Crypto</span>
+          <span class="chip">Automation</span>
+          <span class="chip">B2C &amp; B2B</span>
+        </div>
+
+        <div class="hero-quotes reveal">
+          <div class="visual-strip-wrap">
+            <div class="visual-strip">
+
+              <div class="quote-card">
+                <p class="quote-card__text">"Jelyn was the first business hire at Eternal. Within a few weeks of her joining, no one was giving her directions. Largely thanks to her efforts, Eternal grew by 100x while she was here. She's a game-changing operations &amp; business hire, and a consummate teammate."</p>
+                <div>
+                  <div class="quote-card__name">Derek Chiang</div>
+                  <div class="quote-card__role">Founder, Eternal.gg (YC W20)</div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <p class="quote-card__text">"Jelyn is, in a word, a superstar. Her executive presence inspires me. She is able to command a meeting and extract results from even the most difficult teams. Whatever Jelyn touches, she makes better for everyone involved."</p>
+                <div>
+                  <div class="quote-card__name">Nina Christiansen</div>
+                  <div class="quote-card__role">Senior Manager, OnPrem</div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <p class="quote-card__text">"Continuously surprising. She does everything well and does it fast. The greatest aspect of working with Jelyn is that regardless what task, small or big, her expertise or not, she will get it done. Jelyn is positive, observant, skillful, helpful — the list goes on and on."</p>
+                <div>
+                  <div class="quote-card__name">Pedram Fouroutan</div>
+                  <div class="quote-card__role">Senior Manager, OnPrem</div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <p class="quote-card__text">"I've really enjoyed advising on Jelyn's projects. She carries herself very well in front of the client, exhibiting clear communication skills and competency. She joined mid-way but was able to quickly ramp up &amp; own one of the more complicated workstreams."</p>
+                <div>
+                  <div class="quote-card__name">Yvonne Cheng</div>
+                  <div class="quote-card__role">Associate VP, OnPrem</div>
+                </div>
+              </div>
+
+              <div class="quote-card">
+                <p class="quote-card__text">"Jelyn is such a joy to work with! She brings a positive, can-do attitude every day. She is an extremely fast learner and hard worker. She met the challenge of becoming our Development Lead head on and exceeded all expectations. She has implemented great processes to make our development more organized and efficient."</p>
+                <div>
+                  <div class="quote-card__name">Kayla O' Brien</div>
+                  <div class="quote-card__role">Senior Consultant, OnPrem</div>
+                </div>
+              </div>
+
+            </div>
+            <button class="strip-arrow-left" aria-label="Scroll left">
+              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="strip-arrow" aria-label="Scroll right">
+              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ ACCORDION ══ -->
+    <div class="accordion">
+
+      <div class="section reveal" id="s2">
+        <button class="section__trigger" aria-expanded="false" aria-controls="p2" data-target="s2">
+          <div class="section__left">
+            <span class="section__label">Where I've worked</span>
+            <span class="section__sub">Experience &amp; impact</span>
+          </div>
+          <div class="section__chevron">
+            <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </button>
+
+        <div class="section__panel" id="p2" role="region">
+          <div class="section__panel-inner"><div class="section__content">
+            <div class="timeline">
+
+              <div class="entry">
+                <div class="entry__top"><span class="entry__company">CoinFlip</span><span class="entry__period">Dec 2024 – Present</span></div>
+                <p class="entry__role">Senior Product Manager · Los Angeles</p>
+                <div class="stats">
+                  <div class="stat"><div class="stat__num">↓75%</div><div class="stat__label">Support volume</div></div>
+                  <div class="stat"><div class="stat__num">50%+</div><div class="stat__label">Onboarding</div></div>
+                  <div class="stat"><div class="stat__num">97%</div><div class="stat__label">Early retention</div></div>
+                  <div class="stat"><div class="stat__num">+7.5%</div><div class="stat__label">YoY transactions</div></div>
+                </div>
+                <ul class="wins">
+                  <li>Own the full product roadmap across five interconnected products — keeping momentum on immediate priorities without letting platform drifts, and on top of building new initiatives.</li>
+                  <li>Built a customer portal that enabled users to see and manage their own transactions without calling support. Tickets dropped 75%.</li>
+                  <li>Launched Gradual — a product that lets users automatically invest a portion of their paycheck into crypto. 97% of early users kept going.</li>
+                  <li>Redesigned the account verification flow. Completion rates climbed by over 50%.</li>
+                  <li>Built a crypto donation payment processor with a fully automated system, including real-time compliance checks, that allowed donors to donate to their favorite nonprofits in the currency they want.</li>
+                  <li>Led a full website redesign that drove a 38% week-over-week traffic increase within days of launch.</li>
+                </ul>
+
+                <div class="entry__visual">
+                  <div class="visual-strip-wrap">
+                    <div class="visual-strip">
+                      <div class="visual-card">
+                        <div class="visual-card__label">Website Redesign</div>
+                        <img src="website.png" alt="Website Redesign" class="lb-trigger" />
+                      </div>
+                      <div class="visual-card">
+                        <div class="visual-card__label">Customer Portal</div>
+                        <img src="portal.png" alt="Customer Portal" class="lb-trigger" />
+                      </div>
+                      <div class="visual-card">
+                        <div class="visual-card__label">Gradual</div>
+                        <img src="gradual.png" alt="Gradual" class="lb-trigger" />
+                      </div>
+                    </div>
+
+                    <button class="strip-arrow-left" aria-label="Scroll left">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="strip-arrow" aria-label="Scroll right">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="entry__top">
+                  <div><span class="entry__company">Eternal.gg</span><span class="entry__badge">YC W20 · acquired by Fan Controlled Sports</span></div>
+                  <span class="entry__period">Jul 2021 – Aug 2024</span>
+                </div>
+                <p class="entry__role">Chief of Staff · Los Angeles</p>
+                <div class="stats">
+                  <div class="stat"><div class="stat__num">+20%</div><div class="stat__label">User retention</div></div>
+                  <div class="stat"><div class="stat__num">↓50%</div><div class="stat__label">Cycle time</div></div>
+                  <div class="stat"><div class="stat__num">2×</div><div class="stat__label">Revenues</div></div>
+                </div>
+                <ul class="wins">
+                  <li>Acted as the team's PM, ops glue, and everything in between — owning roadmap, strategy, and org rhythm for a 10–15 person team at a YC-backed Web3 startup.</li>
+                  <li>Led discovery and delivery of features that brought users back more often, bumping retention up 20%, and doubling revenues.</li>
+                  <li>Rebuilt creator workflows from scratch, enabling the same team size to produce twice the output.</li>
+                  <li>Stood up planning and documentation systems that let the team ship with more predictability under startup pressure.</li>
+                </ul>
+                <div class="entry__visual">
+                  <div class="visual-strip-wrap">
+                    <div class="visual-strip">
+                      <div class="visual-card">
+                        <div class="visual-card__label">Eternal News</div>
+                        <img src="eternal.png" alt="Eternal News" class="lb-trigger" />
+                      </div>
+                      <div class="visual-card">
+                        <div class="visual-card__label">Community Event</div>
+                        <img src="eternal party.jpeg" alt="Community Event" class="lb-trigger" />
+                      </div>
+                    </div>
+                    <button class="strip-arrow-left" aria-label="Scroll left">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="strip-arrow" aria-label="Scroll right">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="entry__top"><span class="entry__company">OnPrem Solution Partners</span><span class="entry__period">Jul 2019 – Jul 2021</span></div>
+                <p class="entry__role">Senior Consultant · Los Angeles</p>
+                <ul class="wins">
+                  <li>Delivery and project lead for Disney+ launch.</li>
+                  <li>Defined requirements for content, metadata, and distribution systems. Built dashboards that tracked launch progress and surfaced risks.</li>
+                  <li>Automated manual workflows across multiple teams, improving accuracy and decreasing manual overhead.</li>
+                </ul>
+                <div class="entry__visual">
+                  <div class="visual-strip-wrap">
+                    <div class="visual-strip">
+                      <div class="visual-card">
+                        <div class="visual-card__label">Disney+ Launch</div>
+                        <img src="disney launch.jpeg" alt="Disney+ Launch" class="lb-trigger" />
+                      </div>
+                    </div>
+                    <button class="strip-arrow-left" aria-label="Scroll left">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="strip-arrow" aria-label="Scroll right">
+                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="entry__top"><span class="entry__company">Community Partners</span><span class="entry__period">Jul 2013 – Jun 2019</span></div>
+                <p class="entry__role">Senior Finance Analyst · Los Angeles</p>
+                <ul class="wins">
+                  <li>Managed financial systems and reporting for a $10M+ portfolio — supporting over 150 nonprofit organizations across Los Angeles.</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div class="edu">
+              <p class="edu__label">Education &amp; Certifications</p>
+              <p class="edu__school">UCLA — B.A. Linguistics &amp; Psychology</p>
+              <p class="edu__detail"><span class="edu__accent">Summa Cum Laude</span> &nbsp;·&nbsp; Professional Scrum Master &nbsp;·&nbsp; Business &amp; Financial Modeling &nbsp;·&nbsp; AI Agents Fundamentals</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="section reveal reveal-d2" id="s3">
+        <button class="section__trigger" aria-expanded="false" aria-controls="p3" data-target="s3">
+          <div class="section__left">
+            <span class="section__label">A bit more about me</span>
+            <span class="section__sub">The human stuff</span>
+          </div>
+          <div class="section__chevron">
+            <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </button>
+
+        <div class="section__panel" id="p3" role="region">
+          <div class="section__panel-inner"><div class="section__content">
+            <div class="now-prose">
+              <p>Currently going through EMT school because having one high-stakes environment isn't enough.</p>
+              <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer reveal">
+      <div class="footer__row">
+        <a class="footer__link" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="tel:5039649684">503.964.9684</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="https://linkedin.com/in/jelynhermosa" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
+      </div>
+      <div class="footer__note">Made with Claude Code, ChatGPT, and some coffee.</div>
+    </footer>
+
+  </div>
+
+  <script>
+  /* ══ WORD CYCLE ══════════════════════════════════════════════════ */
+  function initCycle() {
+    const bio   = document.getElementById('heroBio');
+    const clip  = document.getElementById('cycleClip');
+    if (!bio || !clip) return;
+
+    const words = Array.from(clip.querySelectorAll('.cycle-word'));
+    if (!words.length) return;
+
+    const cs       = window.getComputedStyle(bio);
+    const fontSize = cs.fontSize;
+    const fontFamily = cs.fontFamily;
+
+    const probe = document.createElement('span');
+    Object.assign(probe.style, {
+      visibility:  'hidden',
+      position:    'fixed',
+      top:         '-9999px',
+      left:        '-9999px',
+      whiteSpace:  'nowrap',
+      fontFamily:  fontFamily,
+      fontSize:    fontSize,
+      fontWeight:  '600',
+      lineHeight:  '1',
+    });
+    document.body.appendChild(probe);
+
+    let maxW = 0;
+    words.forEach(w => {
+      probe.textContent = w.textContent.trim();
+      maxW = Math.max(maxW, probe.getBoundingClientRect().width);
+    });
+    document.body.removeChild(probe);
+
+    clip.style.width = Math.ceil(maxW) + 4 + 'px';
+    words.forEach(w => { w.style.fontSize = fontSize; });
+
+    let cur = 0;
+    setInterval(() => {
+      const prev = cur;
+      cur = (cur + 1) % words.length;
+      words[prev].classList.remove('active');
+      words[prev].classList.add('exit');
+      setTimeout(() => words[prev].classList.remove('exit'), 460);
+      words[cur].classList.add('active');
+    }, 2800);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(initCycle);
+  } else {
+    window.addEventListener('load', initCycle);
+  }
+
+  /* ══ SCROLL REVEAL ══════════════════════════════════════════════ */
+  (function () {
+    const obs = new IntersectionObserver((entries, o) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  })();
+
+  /* ══ ACCORDION (allow multiple open) ════════════════════════════ */
+  document.querySelectorAll('.section__trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.dataset.target;
+      const section = document.getElementById(id);
+      const isOpen = section.classList.contains('is-open');
+
+      section.classList.toggle('is-open', !isOpen);
+      trigger.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  /* ── Visual strip scroll arrows ── */
+  document.querySelectorAll('.visual-strip-wrap').forEach(function(wrap) {
+    var strip      = wrap.querySelector('.visual-strip');
+    var arrowRight = wrap.querySelector('.strip-arrow');
+    var arrowLeft  = wrap.querySelector('.strip-arrow-left');
+    if (!strip) return;
+
+    function checkPos() {
+      var atEnd   = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 8;
+      var atStart = strip.scrollLeft <= 0;
+      wrap.classList.toggle('at-end',   atEnd);
+      wrap.classList.toggle('at-start', atStart);
+    }
+    strip.addEventListener('scroll', checkPos, { passive: true });
+    checkPos();
+    if (arrowRight) arrowRight.addEventListener('click', function() {
+      strip.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+    if (arrowLeft) arrowLeft.addEventListener('click', function() {
+      strip.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+  });
+
+  /* ══ MOBILE SPLASH: scroll-driven morph to stamp ═════════════════ */
+  (function () {
+    var splash  = document.getElementById('heroSplash');
+    if (!splash) return;
+    if (window.getComputedStyle(splash).display === 'none') return;
+
+    var splashImg = splash.querySelector('.hero-splash__img');
+    var stampEl   = document.querySelector('.hero__stamp');
+    var stampImg  = document.querySelector('.hero__stamp-img');
+    var siteEl    = document.querySelector('.site');
+    if (!splashImg || !stampEl || !siteEl) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      splash.remove();
+      return;
+    }
+
+    // Lock scroll immediately so user can't scroll before init
+    document.body.classList.add('has-splash');
+
+    function run() {
+      // ── Measure splash image visual rect (getBoundingClientRect accounts for CSS transform) ──
+      var SR = splashImg.getBoundingClientRect();
+
+      // ── Measure stamp: keep site invisible via inline style, then remove has-splash ──
+      siteEl.style.opacity   = '0';
+      siteEl.style.transform = 'none';
+      siteEl.style.transition = 'none';
+      document.body.classList.remove('has-splash');
+      document.body.offsetHeight; // flush layout so stamp is at natural position
+
+      // stampImg has transform: translate(-100px) so its rect reflects that shift.
+      // Use that for left/top; use the container for width/height (it clips the img).
+      var imgR = stampImg.getBoundingClientRect();
+      var elR  = stampEl.getBoundingClientRect();
+      var TR   = { left: imgR.left, top: elR.top, width: elR.width, height: elR.height };
+
+      // ── Create fly image — the only visible copy of the avatar during the morph ──
+      var fly = document.createElement('img');
+      fly.src = splashImg.src;
+      fly.setAttribute('aria-hidden', 'true');
+      fly.style.cssText =
+        'position:fixed' +
+        ';left:'   + SR.left   + 'px' +
+        ';top:'    + SR.top    + 'px' +
+        ';width:'  + SR.width  + 'px' +
+        ';height:' + SR.height + 'px' +
+        ';margin:0;padding:0;border:none' +
+        ';object-fit:cover;object-position:center top' +
+        ';z-index:9999;pointer-events:none' +
+        ';will-change:left,top,width,height';
+      document.body.appendChild(fly);
+
+      splashImg.style.opacity   = '0'; // hide original (fly replaces it)
+      stampImg.style.opacity    = '0'; // hide stamp (fly will land here)
+      stampImg.style.transition = 'none';
+
+      // ── Scroll-driven animation ──
+      var RANGE = 180;
+      var done  = false;
+      var raf   = null;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function easeOut(t)     { return 1 - Math.pow(1 - t, 3); }
+      function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+      function update() {
+        raf = null;
+        if (done) return;
+
+        var S  = window.scrollY;
+        var p  = clamp(S / RANGE, 0, 1);
+        var ep = easeOut(p);
+
+        // Stamp's viewport-top moves up as the page scrolls
+        var tTop = TR.top - S;
+
+        fly.style.left   = lerp(SR.left,   TR.left,   ep) + 'px';
+        fly.style.top    = lerp(SR.top,    tTop,      ep) + 'px';
+        fly.style.width  = lerp(SR.width,  TR.width,  ep) + 'px';
+        fly.style.height = lerp(SR.height, TR.height, ep) + 'px';
+
+        // White bg fades out in the first half of scroll
+        splash.style.opacity = clamp(1 - p * 2, 0, 1);
+        // Page content fades in (delayed slightly)
+        siteEl.style.opacity = clamp((p - 0.1) / 0.7, 0, 1);
+
+        if (p >= 1) {
+          done = true;
+          window.removeEventListener('scroll', onScroll, { passive: true });
+          stampImg.style.transition = 'opacity 80ms ease';
+          stampImg.style.opacity    = '1';
+          fly.remove();
+          splash.remove();
+          siteEl.style.opacity    = '';
+          siteEl.style.transform  = '';
+          siteEl.style.transition = '';
+        }
+      }
+
+      function onScroll() {
+        if (!raf) raf = requestAnimationFrame(update);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      update();
+    }
+
+    // Wait for image to load so getBoundingClientRect returns real dimensions
+    if (splashImg.complete && splashImg.naturalHeight > 0) {
+      run();
+    } else {
+      // Fallback: if image never loads within 4s, just show the page
+      var bail = setTimeout(function () { splash.remove(); document.body.classList.remove('has-splash'); }, 4000);
+      splashImg.addEventListener('load', function () { clearTimeout(bail); run(); }, { once: true });
+    }
+  })();
+
+  /* ══ LIGHTBOX ════════════════════════════════════════════════════ */
+  (function () {
+    // Query lazily — #lightbox is parsed after this script tag
+    function lb()    { return document.getElementById('lightbox'); }
+    function lbImg() { return document.getElementById('lbImg'); }
+
+    function open(src, alt) {
+      var el = lb(), img = lbImg();
+      if (!el || !img) return;
+      img.src = src;
+      img.alt = alt || '';
+      el.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      var el = lb(), img = lbImg();
+      if (!el) return;
+      el.classList.remove('open');
+      if (img) img.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', function (e) {
+      // Open on card image click
+      var trigger = e.target.closest('.lb-trigger');
+      if (trigger) { open(trigger.src, trigger.alt); return; }
+      // Close on backdrop or × button
+      var el = lb();
+      if (!el || !el.classList.contains('open')) return;
+      if (e.target === el || e.target.closest('.lb-close')) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+  </script>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lb-close" aria-label="Close">
+      <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <img id="lbImg" src="" alt="" />
+  </div>
+
+</body>
+</html>
