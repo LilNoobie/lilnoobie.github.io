@@ -7,28 +7,10 @@
   <title>Jelyn Hermosa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400..650&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    :root {
-      --white: #ffffff; --surface: #f5f5f7; --ink: #1d1d1f;
-      --gray-1: #6e6e73; --gray-2: #a1a1a6; --rule: #d2d2d7;
-      --accent: #0071e3; --accent-lt: #e8f0fe;
-      --radius-sm: 10px; --radius-lg: 18px;
-      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-    body { background: var(--white); color: var(--ink); font-family: var(--font); min-height: 100vh; overflow-x: hidden; }
-
-    /* ── Scroll reveal ── */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.72s var(--ease), transform 0.72s var(--ease); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-d1 { transition-delay: 0.08s; }
-    .reveal-d2 { transition-delay: 0.16s; }
-    .reveal-d3 { transition-delay: 0.24s; }
-
-    .site { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+    /* Design tokens, nav, section headers, cards & footer live in styles.css (shared with projects.html) */
 
     /* ══ HERO ══ */
     .hero {
@@ -37,8 +19,7 @@
       border-bottom: 1px solid var(--rule);
       overflow: hidden;
     }
-
-    .hero__content { position: relative; }
+    .hero__content { position: relative; z-index: 1; }
 
     /* ── Decorative stamp (avatar) above eyebrow ── */
     .hero__stamp {
@@ -54,6 +35,7 @@
       display: block;
       transform: translate(-100px);
       transform-origin: top left;
+      mix-blend-mode: multiply;
     }
 
     /* Keep eyebrow & name above the stamp if stamp overlaps */
@@ -65,8 +47,9 @@
       color: var(--accent); margin-bottom: 16px;
     }
     .hero__name {
-      font-size: clamp(2rem, 5.5vw, 3.2rem); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.05;
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 600;
+      letter-spacing: -0.02em; line-height: 1.05;
       color: var(--ink); margin-bottom: 22px;
     }
 
@@ -79,6 +62,7 @@
     }
     .cycle-clip {
       display: inline-block;
+      margin-left: 0.25em;
       overflow: hidden;
       height: 1.7em;
       vertical-align: bottom;
@@ -99,61 +83,6 @@
     .cycle-word.active { opacity: 1; transform: translateY(0); }
     .cycle-word.exit   { opacity: 0; transform: translateY(-110%); }
 
-    /* ══ ACCORDION ══ */
-    .section { border-bottom: 1px solid var(--rule); }
-    .section__panel { overflow-anchor: none; }
-
-    .section__trigger {
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; background: none; border: none; cursor: pointer;
-      padding: 28px 0; text-align: left; gap: 16px;
-      -webkit-tap-highlight-color: transparent; outline: none;
-    }
-    .section__trigger:focus-visible {
-      outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px;
-    }
-    .section__left { display: flex; align-items: baseline; gap: 12px; }
-
-    .section__label {
-      font-family: var(--font);
-      font-size: clamp(1rem, 2.4vw, 1.15rem);
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      transition: color 0.2s var(--ease);
-    }
-    .section__trigger:hover .section__label { color: var(--accent); }
-
-    .section__sub {
-      font-size: 12px; font-weight: 400; color: var(--gray-2);
-      font-family: var(--font);
-      transition: opacity 0.2s;
-    }
-    .section.is-open .section__sub { opacity: 0; }
-
-    .section__chevron {
-      flex-shrink: 0; width: 22px; height: 22px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%; background: var(--surface);
-      transition: background 0.25s var(--ease), transform 0.42s var(--ease);
-    }
-    .section__chevron svg { width: 10px; height: 10px; color: var(--gray-1); transition: color 0.2s; }
-    .section.is-open .section__chevron { transform: rotate(180deg); background: var(--accent); }
-    .section.is-open .section__chevron svg { color: white; }
-
-    .section__panel {
-      display: grid; grid-template-rows: 0fr;
-      transition: grid-template-rows 0.5s var(--ease); overflow: hidden;
-    }
-    .section.is-open .section__panel { grid-template-rows: 1fr; }
-    .section__panel-inner { overflow: hidden; }
-    .section__content {
-      padding-bottom: 40px;
-      opacity: 0;
-      transition: opacity 0.38s var(--ease) 0.1s;
-    }
-    .section.is-open .section__content { opacity: 1; }
-
     /* ── Hero expand block ── */
     .hero__expand { margin-bottom: 16px; }
     .hero__expand-body {
@@ -165,26 +94,46 @@
       margin-bottom: 20px;
     }
 
-    /* ── Chips ── */
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip {
-      font-size: 12px; font-weight: 500; letter-spacing: 0.01em;
-      color: var(--accent); background: var(--accent-lt);
-      border-radius: 999px; padding: 5px 13px;
+    /* ── Work timeline: summary rows, hover/tap to expand ── */
+    .timeline { display: flex; flex-direction: column; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 5px; top: 16px; bottom: 16px;
+      width: 2px; background: var(--rule);
     }
-
-    /* ── Section 2 ── */
-    .timeline { display: flex; flex-direction: column; }
-    .entry { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+    .entry { position: relative; padding: 22px 0 22px 30px; border-bottom: 1px solid var(--rule); }
     .entry:last-of-type { border-bottom: none; }
-    .entry__top {
-      display: flex; justify-content: space-between;
-      align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 4px;
+    .entry::before {
+      content: ''; position: absolute; left: 0; top: 28px; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--white); border: 2px solid var(--gray-2);
+      transition: border-color 0.2s, background 0.2s; z-index: 1;
     }
+    .entry:hover::before, .entry.open::before { border-color: var(--accent); background: var(--accent-lt); }
+    .entry__head {
+      display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 16px;
+      background: none; border: none; padding: 0; cursor: pointer; text-align: left;
+      font-family: var(--font); -webkit-tap-highlight-color: transparent;
+    }
+    .entry__head:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+    .entry__headline { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+    .entry__top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
     .entry__company { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
     .entry__badge { font-size: 11px; font-weight: 400; color: var(--gray-2); margin-left: 6px; }
     .entry__period { font-size: 12px; font-weight: 400; color: var(--gray-2); white-space: nowrap; }
-    .entry__role { font-size: 13px; font-weight: 400; color: var(--gray-1); margin-bottom: 18px; }
+    .entry__role { display: block; font-size: 13px; font-weight: 400; color: var(--gray-1); }
+    .entry__summary { display: block; font-size: 13.5px; line-height: 1.6; color: var(--gray-1); margin-top: 6px; }
+    .entry__plus {
+      flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; margin-top: 2px;
+      background: var(--surface); color: var(--gray-1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 400; line-height: 0;
+      transition: transform 0.35s var(--ease), background 0.2s, color 0.2s;
+    }
+    .entry:hover .entry__plus, .entry.open .entry__plus { transform: rotate(45deg); background: var(--accent); color: #fff; }
+    .entry__details { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
+    .entry:hover .entry__details, .entry.open .entry__details, .entry:focus-within .entry__details { grid-template-rows: 1fr; }
+    .entry__details-inner { overflow: hidden; }
+    .entry__details-inner > *:first-child { margin-top: 18px; }
+    .entry--flat .entry__headline { gap: 4px; }
     .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
     .stat { background: var(--surface); border-radius: var(--radius-sm); padding: 8px 14px; text-align: center; min-width: 90px; }
     .stat__num { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin-bottom: 3px; }
@@ -252,16 +201,30 @@
       font-weight: 500;
     }
 
-    /* ── Footer ── */
-    .footer { padding: 40px 0 64px; display: flex; flex-direction: column; gap: 10px; }
-    .footer__row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer__link { font-size: 13px; font-weight: 400; color: var(--gray-1); text-decoration: none; transition: color 0.15s; }
-    .footer__link:hover { color: var(--accent); }
-    .footer__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--rule); }
-    .footer__note {
-      font-size: 12px;
-      color: var(--gray-2);
+    /* ── Projects carousel ── */
+    .lab-strip { scroll-snap-type: x proximity; padding-bottom: 14px; }
+    .lab-card {
+      flex: 0 0 auto; width: min(430px, 84%);
+      scroll-snap-align: start;
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--white); border: 1px solid var(--rule);
+      border-radius: var(--radius-lg); padding: 18px;
     }
+    .lab-card .phone-col { margin-top: 4px; }
+    .lab-card--cta {
+      align-items: center; justify-content: center; gap: 10px;
+      background: var(--surface); border-color: transparent;
+      text-decoration: none; min-height: 220px;
+    }
+    .lab-card--cta__big { font-family: var(--font-display); font-size: 22px; font-weight: 550; color: var(--ink); transition: color 0.15s; }
+    .lab-card--cta__sub { font-size: 12px; color: var(--gray-1); }
+    .lab-card--cta:hover .lab-card--cta__big { color: var(--accent); }
+    .teaser-cta {
+      display: inline-block; margin-top: 16px;
+      font-size: 13.5px; font-weight: 600;
+      color: var(--accent); text-decoration: none;
+    }
+    .teaser-cta:hover { text-decoration: underline; }
 
     /* ── Entry visual — horizontal scroll strip ── */
     .entry__visual { margin-top: 20px; }
@@ -491,6 +454,18 @@
     </div>
   </div>
 
+  <nav class="nav">
+    <div class="nav__inner">
+      <a class="nav__name" href="index.html">Jelyn Hermosa</a>
+      <div class="nav__links">
+        <a href="#work">Work</a>
+        <a href="projects.html">Projects</a>
+        <a href="#about">About</a>
+        <a href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="site">
 
     <!-- ══ HERO ══ -->
@@ -597,24 +572,25 @@
     <!-- ══ ACCORDION ══ -->
     <div class="accordion">
 
-      <div class="section reveal" id="s2">
-        <button class="section__trigger" aria-expanded="false" aria-controls="p2" data-target="s2">
-          <div class="section__left">
-            <span class="section__label">Where I've worked</span>
-            <span class="section__sub">Experience &amp; impact</span>
-          </div>
-          <div class="section__chevron">
-            <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </button>
-
-        <div class="section__panel" id="p2" role="region">
-          <div class="section__panel-inner"><div class="section__content">
+      <section class="section reveal" id="work">
+        <div class="section__head">
+          <span class="section__num">01</span>
+          <h2 class="section__title">Where I've worked</h2>
+          <span class="section__sub">Hover or tap a role for the full story</span>
+        </div>
+        <div class="section__content">
             <div class="timeline">
 
               <div class="entry">
-                <div class="entry__top"><span class="entry__company">CoinFlip</span><span class="entry__period">Dec 2024 – Present</span></div>
-                <p class="entry__role">Senior Product Manager · Los Angeles</p>
+                <button class="entry__head" type="button" aria-expanded="false">
+                  <span class="entry__headline">
+                    <span class="entry__top"><span class="entry__company">CoinFlip</span><span class="entry__period">Dec 2024 – Present</span></span>
+                    <span class="entry__role">Senior Product Manager · Los Angeles</span>
+                    <span class="entry__summary">Owning the roadmap across five crypto products — support tickets down 75%, onboarding completion up 50%.</span>
+                  </span>
+                  <span class="entry__plus" aria-hidden="true">+</span>
+                </button>
+                <div class="entry__details"><div class="entry__details-inner">
                 <div class="stats">
                   <div class="stat"><div class="stat__num">↓75%</div><div class="stat__label">Support volume</div></div>
                   <div class="stat"><div class="stat__num">50%+</div><div class="stat__label">Onboarding</div></div>
@@ -655,14 +631,19 @@
                     </button>
                   </div>
                 </div>
+                </div></div>
               </div>
 
               <div class="entry">
-                <div class="entry__top">
-                  <div><span class="entry__company">Eternal.gg</span><span class="entry__badge">YC W20 · acquired by Fan Controlled Sports</span></div>
-                  <span class="entry__period">Jul 2021 – Aug 2024</span>
-                </div>
-                <p class="entry__role">Chief of Staff · Los Angeles</p>
+                <button class="entry__head" type="button" aria-expanded="false">
+                  <span class="entry__headline">
+                    <span class="entry__top"><span><span class="entry__company">Eternal.gg</span><span class="entry__badge">YC W20 · acquired by Fan Controlled Sports</span></span><span class="entry__period">Jul 2021 – Aug 2024</span></span>
+                    <span class="entry__role">Chief of Staff · Los Angeles</span>
+                    <span class="entry__summary">First business hire at a YC-backed Web3 startup — the PM and ops glue while it grew 100× and revenues doubled.</span>
+                  </span>
+                  <span class="entry__plus" aria-hidden="true">+</span>
+                </button>
+                <div class="entry__details"><div class="entry__details-inner">
                 <div class="stats">
                   <div class="stat"><div class="stat__num">+20%</div><div class="stat__label">User retention</div></div>
                   <div class="stat"><div class="stat__num">↓50%</div><div class="stat__label">Cycle time</div></div>
@@ -694,11 +675,19 @@
                     </button>
                   </div>
                 </div>
+                </div></div>
               </div>
 
               <div class="entry">
-                <div class="entry__top"><span class="entry__company">OnPrem Solution Partners</span><span class="entry__period">Jul 2019 – Jul 2021</span></div>
-                <p class="entry__role">Consultant · Los Angeles</p>
+                <button class="entry__head" type="button" aria-expanded="false">
+                  <span class="entry__headline">
+                    <span class="entry__top"><span class="entry__company">OnPrem Solution Partners</span><span class="entry__period">Jul 2019 – Jul 2021</span></span>
+                    <span class="entry__role">Consultant · Los Angeles</span>
+                    <span class="entry__summary">Delivery and technical product lead for the Disney+ global streaming launch.</span>
+                  </span>
+                  <span class="entry__plus" aria-hidden="true">+</span>
+                </button>
+                <div class="entry__details"><div class="entry__details-inner">
                 <ul class="wins">
                   <li>Delivery and technical product lead for a global streaming launch.</li>
                   <li>Defined requirements for content, metadata, and distribution systems. Built dashboards that tracked launch progress and surfaced risks.</li>
@@ -720,14 +709,15 @@
                     </button>
                   </div>
                 </div>
+                </div></div>
               </div>
 
-              <div class="entry">
-                <div class="entry__top"><span class="entry__company">Community Partners</span><span class="entry__period">Jul 2013 – Jun 2019</span></div>
-                <p class="entry__role">Senior Finance Analyst · Los Angeles</p>
-                <ul class="wins">
-                  <li>Managed financial systems and reporting for a $10M+ portfolio — supporting over 150 nonprofit organizations across Los Angeles.</li>
-                </ul>
+              <div class="entry entry--flat">
+                <div class="entry__headline">
+                  <span class="entry__top"><span class="entry__company">Community Partners</span><span class="entry__period">Jul 2013 – Jun 2019</span></span>
+                  <span class="entry__role">Senior Finance Analyst · Los Angeles</span>
+                  <span class="entry__summary">Ran financial systems and reporting for a $10M+ portfolio — supporting over 150 nonprofits across Los Angeles.</span>
+                </div>
               </div>
 
             </div>
@@ -737,30 +727,191 @@
               <p class="edu__school">UCLA — B.A. Linguistics &amp; Psychology</p>
               <p class="edu__detail"><span class="edu__accent">Summa Cum Laude</span> &nbsp;·&nbsp; Professional Scrum Master &nbsp;·&nbsp; Business &amp; Financial Modeling &nbsp;·&nbsp; AI Agents Fundamentals</p>
             </div>
-          </div></div>
         </div>
-      </div>
+      </section>
 
-      <div class="section reveal reveal-d2" id="s3">
-        <button class="section__trigger" aria-expanded="false" aria-controls="p3" data-target="s3">
-          <div class="section__left">
-            <span class="section__label">A bit more about me</span>
-            <span class="section__sub">The human stuff</span>
-          </div>
-          <div class="section__chevron">
-            <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </button>
+      <section class="section reveal" id="projects">
+        <div class="section__head">
+          <span class="section__num">02</span>
+          <h2 class="section__title">What I'm building</h2>
+          <span class="section__sub">Scroll sideways — everything is playable</span>
+        </div>
+        <div class="section__content">
+          <div class="visual-strip-wrap">
+            <div class="visual-strip lab-strip">
 
-        <div class="section__panel" id="p3" role="region">
-          <div class="section__panel-inner"><div class="section__content">
+              <div class="lab-card">
+                <div class="project-card__meta">
+                  <span class="project-card__status project-card__status--wip">In progress</span>
+                  <span class="project-card__year">2026</span>
+                </div>
+                <p class="project-card__name">Fina</p>
+                <p class="project-card__desc">A personal finance app where the AI does the boring part: import a bank statement and watch it categorize itself. Net worth tracking, shared-vs-personal expense splits, savings goals, real auth with a PIN lock, and cloud sync via Supabase. In QA mode.</p>
+                <div class="demo">
+                  <p class="demo__label">Live demo — sample statement</p>
+                  <div class="fina-demo" data-fina>
+                    <div class="fina-demo__bar">
+                      <span class="fina-demo__logo">fina</span>
+                      <span class="fina-demo__tabs" data-fina-tabs>
+                        <span data-pane="dash">Dashboard</span>
+                        <span class="on" data-pane="txn">Transactions</span>
+                        <span data-pane="goals">Goals</span>
+                        <span data-pane="nw">Net worth</span>
+                      </span>
+                    </div>
+                    <div class="fina-pane on" data-fina-pane="txn">
+                      <div class="fina-demo__cta-row">
+                        <button class="fina-demo__run" type="button">Upload a statement</button>
+                        <span class="fina-demo__saved" data-fina-saved>✓ saved</span>
+                      </div>
+                      <div class="fina-demo__rows" data-fina-rows>
+                        <p class="fina-demo__empty">PDF, screenshot, or CSV — Claude reads it and builds the budget. This demo runs a sample statement, then check the other tabs.</p>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="dash">
+                      <div class="fina-dash">
+                        <div class="fina-donut-wrap">
+                          <svg viewBox="0 0 42 42" aria-hidden="true">
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#EDE8E3" stroke-width="6"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#5A8A6A" stroke-width="6" stroke-dasharray="50 50" stroke-dashoffset="25"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#4A7090" stroke-width="6" stroke-dasharray="31 69" stroke-dashoffset="-25"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#B8728A" stroke-width="6" stroke-dasharray="10 90" stroke-dashoffset="-56"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#A0784A" stroke-width="6" stroke-dasharray="9 91" stroke-dashoffset="-66"/>
+                          </svg>
+                          <div class="fina-donut-center"><b>$168.54</b><span>this month</span></div>
+                        </div>
+                        <div class="fina-dash-legend">
+                          <div><i style="background:#5A8A6A"></i>Groceries<b>$84.20</b></div>
+                          <div><i style="background:#4A7090"></i>Transport &amp; gas<b>$52.10</b></div>
+                          <div><i style="background:#B8728A"></i>Dining out<b>$16.75</b></div>
+                          <div><i style="background:#A0784A"></i>Subscriptions<b>$15.49</b></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="goals">
+                      <div class="fina-goal">
+                        <div class="fina-goal-wrap">
+                          <svg viewBox="0 0 120 76" aria-hidden="true">
+                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#EDE8E3" stroke-width="8" stroke-linecap="round"/>
+                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#5A8A6A" stroke-width="8" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="47.4"/>
+                          </svg>
+                          <div class="fina-goal-pct">71%</div>
+                        </div>
+                        <div class="fina-goal-name">Vacation fund</div>
+                        <div class="fina-goal-sub">Goals fill up as you save</div>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="nw">
+                      <div class="fina-nw">
+                        <svg viewBox="0 0 240 64" preserveAspectRatio="none" aria-hidden="true">
+                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12 L236 64 L0 64 Z" fill="rgba(184,114,138,0.15)"/>
+                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12" fill="none" stroke="#B8728A" stroke-width="2"/>
+                          <circle cx="236" cy="12" r="3" fill="#B8728A"/>
+                        </svg>
+                        <div class="fina-nw-cap"><span>Assets − liabilities, snapshot by snapshot</span><b>▲ trending up</b></div>
+                      </div>
+                    </div>
+                    <p class="fina-demo__foot">No bank logins. No subscriptions. Parsing by Claude.</p>
+                  </div>
+                </div>
+                <div class="project-card__links">
+                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/fina-finance-budget-app" target="_blank" rel="noopener">Code ↗</a>
+                </div>
+              </div>
+
+              <div class="lab-card">
+                <div class="project-card__meta">
+                  <span class="project-card__status project-card__status--live">Live</span>
+                  <span class="project-card__year">2026</span>
+                </div>
+                <p class="project-card__name">Habit Tracker</p>
+                <p class="project-card__desc">A no-account PWA with streaks, sparklines, and confetti. This is the real app — go ahead.</p>
+                <div class="phone-col">
+                  <div class="phone phone--sm">
+                    <iframe src="https://lilnoobie.github.io/habit-tracker/" title="Live preview of the Habit Tracker" loading="lazy"></iframe>
+                  </div>
+                  <span class="phone-col__hint">tap around, it's real</span>
+                </div>
+                <div class="project-card__links">
+                  <a class="project-card__link" href="https://lilnoobie.github.io/habit-tracker/" target="_blank" rel="noopener">Open full screen ↗</a>
+                </div>
+              </div>
+
+              <div class="lab-card">
+                <div class="project-card__meta">
+                  <span class="project-card__status">Shipped</span>
+                  <span class="project-card__year">Early-AI era</span>
+                </div>
+                <p class="project-card__name">Blackjack Card Counter Trainer</p>
+                <p class="project-card__desc">A terminal trainer for keeping the Hi-Lo count. Built with day-one ChatGPT, back when it was more enthusiasm than accuracy.</p>
+                <div class="demo">
+                  <p class="demo__label">Try it — what's this card worth?</p>
+                  <div class="bj">
+                    <div class="bj-card" id="bjCard" aria-live="polite"><span id="bjRank">?</span><span id="bjSuit"></span></div>
+                    <div class="bj-right">
+                      <div class="bj-btns">
+                        <button class="bj-btn" data-v="-1" type="button">−1</button>
+                        <button class="bj-btn" data-v="0" type="button">0</button>
+                        <button class="bj-btn" data-v="1" type="button">+1</button>
+                      </div>
+                      <p class="bj-feedback" id="bjFeedback">Hi-Lo: 2–6 is +1, 7–9 is 0, 10–A is −1</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-card__links">
+                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/blackjack-card-counter" target="_blank" rel="noopener">Code ↗</a>
+                </div>
+              </div>
+
+              <div class="lab-card">
+                <div class="project-card__meta">
+                  <span class="project-card__status">Shipped</span>
+                  <span class="project-card__year">Pre-AI era</span>
+                </div>
+                <p class="project-card__name">Tarot Reader</p>
+                <p class="project-card__desc">Three cards in your terminal. Every line typed by hand — no AI, just vibes and Node.js.</p>
+                <div class="demo">
+                  <p class="demo__label">Your fortune awaits</p>
+                  <div class="tarot">
+                    <button class="tarot-btn" id="tarotBtn" type="button">Draw a card</button>
+                    <p class="tarot-result" id="tarotResult" aria-live="polite"></p>
+                  </div>
+                </div>
+                <div class="project-card__links">
+                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/Tarot-Reader" target="_blank" rel="noopener">Code ↗</a>
+                </div>
+              </div>
+
+              <a class="lab-card lab-card--cta" href="projects.html">
+                <span class="lab-card--cta__big">The lab →</span>
+                <span class="lab-card--cta__sub">All projects, live demos &amp; the archive</span>
+              </a>
+
+            </div>
+            <button class="strip-arrow-left" aria-label="Scroll left">
+              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="strip-arrow" aria-label="Scroll right">
+              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <a class="teaser-cta" href="projects.html">Explore the lab →</a>
+        </div>
+      </section>
+
+      <section class="section reveal" id="about">
+        <div class="section__head">
+          <span class="section__num">03</span>
+          <h2 class="section__title">A bit more about me</h2>
+          <span class="section__sub">The human stuff</span>
+        </div>
+        <div class="section__content">
             <div class="now-prose">
-              <p>Currently going through EMT school because having one high-stakes environment isn't enough.</p>
+              <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
               <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
             </div>
-          </div></div>
         </div>
-      </div>
+      </section>
 
     </div>
 
@@ -771,6 +922,8 @@
         <a class="footer__link" href="tel:5039649684">503.964.9684</a>
         <span class="footer__dot"></span>
         <a class="footer__link" href="https://linkedin.com/in/jelynhermosa" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="https://github.com/LilNoobie" target="_blank" rel="noopener">GitHub ↗</a>
         <span class="footer__dot"></span>
         <a class="footer__link" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
       </div>
@@ -842,18 +995,6 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
 
-  /* ══ ACCORDION (allow multiple open) ════════════════════════════ */
-  document.querySelectorAll('.section__trigger').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const id = trigger.dataset.target;
-      const section = document.getElementById(id);
-      const isOpen = section.classList.contains('is-open');
-
-      section.classList.toggle('is-open', !isOpen);
-      trigger.setAttribute('aria-expanded', String(!isOpen));
-    });
-  });
-
   /* ── Visual strip scroll arrows ── */
   document.querySelectorAll('.visual-strip-wrap').forEach(function(wrap) {
     var strip      = wrap.querySelector('.visual-strip');
@@ -869,11 +1010,15 @@
     }
     strip.addEventListener('scroll', checkPos, { passive: true });
     checkPos();
+    function stepSize() {
+      var card = strip.firstElementChild;
+      return card ? card.getBoundingClientRect().width + 10 : 300;
+    }
     if (arrowRight) arrowRight.addEventListener('click', function() {
-      strip.scrollBy({ left: 300, behavior: 'smooth' });
+      strip.scrollBy({ left: stepSize(), behavior: 'smooth' });
     });
     if (arrowLeft) arrowLeft.addEventListener('click', function() {
-      strip.scrollBy({ left: -300, behavior: 'smooth' });
+      strip.scrollBy({ left: -stepSize(), behavior: 'smooth' });
     });
   });
 
@@ -1041,5 +1186,6 @@
     <img id="lbImg" src="" alt="" />
   </div>
 
+  <script src="demos.js"></script>
 </body>
 </html>

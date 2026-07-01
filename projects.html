@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>The Lab — Jelyn Hermosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400..650&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .lab-hero { padding: 64px 0 48px; }
+    .lab-hero__eyebrow {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .lab-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 3rem); font-weight: 550;
+      letter-spacing: -0.02em; line-height: 1.05;
+      color: var(--ink); margin-bottom: 18px;
+    }
+    .lab-hero__intro {
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem); font-weight: 300;
+      line-height: 1.7; color: var(--gray-1); max-width: 560px;
+    }
+    .lab-section { padding: 40px 0 12px; }
+    .lab-section__label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gray-2); margin-bottom: 18px;
+    }
+    .back-home { padding: 36px 0 8px; }
+    .back-home a { font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; }
+    .back-home a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a class="nav__name" href="index.html">Jelyn Hermosa</a>
+      <div class="nav__links">
+        <a href="index.html#work">Work</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="site">
+
+    <header class="lab-hero">
+      <p class="lab-hero__eyebrow reveal">Projects</p>
+      <h1 class="lab-hero__title reveal reveal-d1">The lab</h1>
+      <p class="lab-hero__intro reveal reveal-d2">Things I built that nobody asked for. Play with them here.</p>
+    </header>
+
+    <section class="lab-section reveal">
+      <p class="lab-section__label">On the bench</p>
+      <div class="projects">
+
+        <div class="project-card project-card--featured">
+          <div class="project-card__body">
+            <div class="project-card__meta">
+              <span class="project-card__status project-card__status--wip">In progress</span>
+              <span class="project-card__year">2026</span>
+            </div>
+            <p class="project-card__name">Fina</p>
+            <p class="project-card__desc">A personal finance app where the AI does the boring part: import a bank statement and watch it categorize itself. Net worth tracking, shared-vs-personal expense splits, savings goals, real auth with a PIN lock, and cloud sync via Supabase. In QA mode.</p>
+            <div class="project-card__tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">Netlify</span>
+              <span class="tag">Design system</span>
+            </div>
+            <div class="project-card__links">
+              <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/fina-finance-budget-app" target="_blank" rel="noopener">Code ↗</a>
+            </div>
+          </div>
+          <div class="fina-col">
+            <div class="demo">
+              <p class="demo__label">Live demo — sample statement</p>
+              <div class="fina-demo" data-fina>
+                    <div class="fina-demo__bar">
+                      <span class="fina-demo__logo">fina</span>
+                      <span class="fina-demo__tabs" data-fina-tabs>
+                        <span data-pane="dash">Dashboard</span>
+                        <span class="on" data-pane="txn">Transactions</span>
+                        <span data-pane="goals">Goals</span>
+                        <span data-pane="nw">Net worth</span>
+                      </span>
+                    </div>
+                    <div class="fina-pane on" data-fina-pane="txn">
+                      <div class="fina-demo__cta-row">
+                        <button class="fina-demo__run" type="button">Upload a statement</button>
+                        <span class="fina-demo__saved" data-fina-saved>✓ saved</span>
+                      </div>
+                      <div class="fina-demo__rows" data-fina-rows>
+                        <p class="fina-demo__empty">PDF, screenshot, or CSV — Claude reads it and builds the budget. This demo runs a sample statement, then check the other tabs.</p>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="dash">
+                      <div class="fina-dash">
+                        <div class="fina-donut-wrap">
+                          <svg viewBox="0 0 42 42" aria-hidden="true">
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#EDE8E3" stroke-width="6"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#5A8A6A" stroke-width="6" stroke-dasharray="50 50" stroke-dashoffset="25"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#4A7090" stroke-width="6" stroke-dasharray="31 69" stroke-dashoffset="-25"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#B8728A" stroke-width="6" stroke-dasharray="10 90" stroke-dashoffset="-56"/>
+                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#A0784A" stroke-width="6" stroke-dasharray="9 91" stroke-dashoffset="-66"/>
+                          </svg>
+                          <div class="fina-donut-center"><b>$168.54</b><span>this month</span></div>
+                        </div>
+                        <div class="fina-dash-legend">
+                          <div><i style="background:#5A8A6A"></i>Groceries<b>$84.20</b></div>
+                          <div><i style="background:#4A7090"></i>Transport &amp; gas<b>$52.10</b></div>
+                          <div><i style="background:#B8728A"></i>Dining out<b>$16.75</b></div>
+                          <div><i style="background:#A0784A"></i>Subscriptions<b>$15.49</b></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="goals">
+                      <div class="fina-goal">
+                        <div class="fina-goal-wrap">
+                          <svg viewBox="0 0 120 76" aria-hidden="true">
+                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#EDE8E3" stroke-width="8" stroke-linecap="round"/>
+                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#5A8A6A" stroke-width="8" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="47.4"/>
+                          </svg>
+                          <div class="fina-goal-pct">71%</div>
+                        </div>
+                        <div class="fina-goal-name">Vacation fund</div>
+                        <div class="fina-goal-sub">Goals fill up as you save</div>
+                      </div>
+                    </div>
+                    <div class="fina-pane" data-fina-pane="nw">
+                      <div class="fina-nw">
+                        <svg viewBox="0 0 240 64" preserveAspectRatio="none" aria-hidden="true">
+                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12 L236 64 L0 64 Z" fill="rgba(184,114,138,0.15)"/>
+                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12" fill="none" stroke="#B8728A" stroke-width="2"/>
+                          <circle cx="236" cy="12" r="3" fill="#B8728A"/>
+                        </svg>
+                        <div class="fina-nw-cap"><span>Assets − liabilities, snapshot by snapshot</span><b>▲ trending up</b></div>
+                      </div>
+                    </div>
+                    <p class="fina-demo__foot">No bank logins. No subscriptions. Parsing by Claude.</p>
+                  </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card project-card--featured">
+          <div class="project-card__body">
+            <div class="project-card__meta">
+              <span class="project-card__status project-card__status--live">Live</span>
+              <span class="project-card__year">2026</span>
+            </div>
+            <p class="project-card__name">Habit Tracker</p>
+            <p class="project-card__desc">A minimalist PWA that lives on your phone's home screen. No account, no server, no app store — just streaks, PR sparklines, and confetti when you finish the day. Built for people who want to track 1–5 habits without downloading Yet Another App.</p>
+            <div class="project-card__tags">
+              <span class="tag">Vanilla JS</span>
+              <span class="tag">PWA</span>
+              <span class="tag">Offline-first</span>
+              <span class="tag">localStorage</span>
+            </div>
+            <div class="project-card__links">
+              <a class="project-card__link" href="https://lilnoobie.github.io/habit-tracker/" target="_blank" rel="noopener">Open full screen ↗</a>
+              <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/habit-tracker" target="_blank" rel="noopener">Code ↗</a>
+            </div>
+          </div>
+          <div class="phone-col">
+            <div class="phone">
+              <iframe src="https://lilnoobie.github.io/habit-tracker/" title="Live preview of the Habit Tracker" loading="lazy"></iframe>
+            </div>
+            <span class="phone-col__hint">↑ the real thing — tap around</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card__meta">
+            <span class="project-card__status">Shipped</span>
+            <span class="project-card__year">Early-AI era</span>
+          </div>
+          <p class="project-card__name">Blackjack Card Counter Trainer</p>
+          <p class="project-card__desc">A terminal trainer for the Hi-Lo counting system. Cards flash by, you keep the running count, and it times you down to the millisecond. Built with day-one ChatGPT, back when it was more enthusiasm than accuracy.</p>
+          <div class="demo">
+            <p class="demo__label">Try it — what's this card worth?</p>
+            <div class="bj">
+              <div class="bj-card" id="bjCard" aria-live="polite"><span id="bjRank">?</span><span id="bjSuit"></span></div>
+              <div class="bj-right">
+                <div class="bj-btns">
+                  <button class="bj-btn" data-v="-1" type="button">−1</button>
+                  <button class="bj-btn" data-v="0" type="button">0</button>
+                  <button class="bj-btn" data-v="1" type="button">+1</button>
+                </div>
+                <p class="bj-feedback" id="bjFeedback">Hi-Lo: 2–6 is +1, 7–9 is 0, 10–A is −1</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span class="tag">Python</span>
+            <span class="tag">CLI</span>
+          </div>
+          <div class="project-card__links">
+            <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/blackjack-card-counter" target="_blank" rel="noopener">Code ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card__meta">
+            <span class="project-card__status">Shipped</span>
+            <span class="project-card__year">Pre-AI era</span>
+          </div>
+          <p class="project-card__name">Tarot Reader</p>
+          <p class="project-card__desc">A Node.js CLI that pulls three tarot cards right in your terminal. Insight and enlightenment not guaranteed, but strongly implied.</p>
+          <div class="demo">
+            <p class="demo__label">Your fortune awaits</p>
+            <div class="tarot">
+              <button class="tarot-btn" id="tarotBtn" type="button">Draw a card</button>
+              <p class="tarot-result" id="tarotResult" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">CLI</span>
+          </div>
+          <div class="project-card__links">
+            <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/Tarot-Reader" target="_blank" rel="noopener">Code ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="lab-section reveal">
+      <p class="lab-section__label">From the archive — the pre-AI era</p>
+      <div class="archive">
+        <a class="archive__row" href="https://github.com/LilNoobie/gown-price-checker" target="_blank" rel="noopener">
+          <span class="archive__name">Gown Price Checker</span>
+          <span class="archive__desc">A React app for comparing gown prices — formalwear shouldn't feel like a mortgage.</span>
+          <span class="archive__year">2023 ↗</span>
+        </a>
+        <a class="archive__row" href="https://github.com/LilNoobie/fullsnack" target="_blank" rel="noopener">
+          <span class="archive__name">Fullsnack</span>
+          <span class="archive__desc">An early front-end build from my full-stack coursework. The pun was the best part.</span>
+          <span class="archive__year">2022 ↗</span>
+        </a>
+        <a class="archive__row" href="https://github.com/LilNoobie/Website-Portfolio" target="_blank" rel="noopener">
+          <span class="archive__name">Website Portfolio v1</span>
+          <span class="archive__desc">The site before this site. We don't talk about the site before this site.</span>
+          <span class="archive__year">2022 ↗</span>
+        </a>
+      </div>
+      <p class="projects-more" style="margin-top: 22px; font-size: 13px; color: var(--gray-1);">Everything else lives on <a href="https://github.com/LilNoobie" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">GitHub ↗</a></p>
+    </section>
+
+    <div class="back-home reveal">
+      <a href="index.html">← Back to the front page</a>
+    </div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <a class="footer__link" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="https://linkedin.com/in/jelynhermosa" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="https://github.com/LilNoobie" target="_blank" rel="noopener">GitHub ↗</a>
+        <span class="footer__dot"></span>
+        <a class="footer__link" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
+      </div>
+      <div class="footer__note">Made with Claude Code, ChatGPT, and some coffee.</div>
+    </footer>
+
+  </div>
+
+  <script>
+  /* ══ SCROLL REVEAL ══════════════════════════════════════════════ */
+  (function () {
+    const obs = new IntersectionObserver((entries, o) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  })();
+
+  </script>
+  <script src="demos.js"></script>
+
+</body>
+</html>
