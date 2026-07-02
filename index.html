@@ -7,956 +7,622 @@
   <title>Jelyn Hermosa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400..650&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Design tokens, nav, section headers, cards & footer live in styles.css (shared with projects.html) */
+    /* Tokens, nav, sections, cards & demos live in styles.css (shared with projects.html) */
+
+    /* ── Faint blush blob ── */
+    .bg-blob {
+      position: absolute; top: -140px; right: -100px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, oklch(0.95 0.02 20) 0%, transparent 70%);
+      animation: blobFloat 16s ease-in-out infinite;
+      pointer-events: none; z-index: 0;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -24px) scale(1.08); }
+    }
+    .page-top { position: relative; overflow: hidden; }
 
     /* ══ HERO ══ */
     .hero {
-      position: relative;
-      padding: 96px 0 80px;
-      border-bottom: 1px solid var(--rule);
-      overflow: hidden;
+      padding: 64px 0 72px;
+      display: grid; grid-template-columns: 1fr 300px; gap: 56px;
+      align-items: center; position: relative; z-index: 1;
     }
-    .hero__content { position: relative; z-index: 1; }
-
-    /* ── Decorative stamp (avatar) above eyebrow ── */
-    .hero__stamp {
-      width: 400px;
-      height: 250px;
-      margin: -70px 0 0 0;
-      overflow: hidden;
-    }
-
-    .hero__stamp-img {
-      width: 400px;
-      height: auto;
-      display: block;
-      transform: translate(-100px);
-      transform-origin: top left;
-      mix-blend-mode: multiply;
-    }
-
-    /* Keep eyebrow & name above the stamp if stamp overlaps */
-    .hero__eyebrow,
-    .hero__name { position: relative; z-index: 2; }
-
     .hero__eyebrow {
-      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-      color: var(--accent); margin-bottom: 16px;
+      font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em;
+      color: var(--accent); margin-bottom: 18px;
     }
     .hero__name {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 600;
-      letter-spacing: -0.02em; line-height: 1.05;
-      color: var(--ink); margin-bottom: 22px;
+      font-size: clamp(2.4rem, 5.5vw, 3.25rem); line-height: 1.06;
+      letter-spacing: -0.03em; font-weight: 700; margin-bottom: 18px;
     }
-
-    /* ── Word cycle ── */
-    .hero__bio {
-      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-      font-weight: 300; line-height: 1.7;
-      color: var(--gray-1); max-width: 580px;
-      margin-bottom: 16px;
+    .hero__bio, .hero__thrive {
+      font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--body-2);
+      line-height: 1.55; max-width: 580px;
     }
+    .hero__bio { margin-bottom: 10px; }
     .cycle-clip {
-      display: inline-block;
-      margin-left: 0.25em;
-      overflow: hidden;
-      height: 1.7em;
-      vertical-align: bottom;
-      position: relative;
+      display: inline-block; margin-left: 0.25em;
+      overflow: hidden; height: 1.55em;
+      vertical-align: bottom; position: relative;
     }
     .cycle-word {
-      display: block;
-      position: absolute;
-      left: 0; bottom: 0;
-      white-space: nowrap;
-      font-weight: 600;
-      color: var(--ink);
-      opacity: 0;
-      transform: translateY(110%);
+      display: block; position: absolute; left: 0; bottom: 0;
+      white-space: nowrap; font-weight: 600; color: var(--accent);
+      opacity: 0; transform: translateY(110%);
       transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
       will-change: transform, opacity;
     }
     .cycle-word.active { opacity: 1; transform: translateY(0); }
-    .cycle-word.exit   { opacity: 0; transform: translateY(-110%); }
-
-    /* ── Hero expand block ── */
-    .hero__expand { margin-bottom: 16px; }
-    .hero__expand-body {
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--gray-1);
-      max-width: 560px;
-      margin-bottom: 20px;
+    .cycle-word.exit { opacity: 0; transform: translateY(-110%); }
+    .hero__more { margin-top: 14px; font-size: 16px; color: var(--gray-1); line-height: 1.6; max-width: 560px; }
+    .hero .chips { margin-top: 30px; }
+    .hero__photo { justify-self: center; }
+    .hero__photo img {
+      width: 260px; display: block;
+      filter: drop-shadow(0 12px 20px rgba(51, 43, 46, 0.14));
+      transform: rotate(2deg);
+      transition: transform 0.3s var(--ease);
+    }
+    .hero__photo:hover img { transform: rotate(-2deg) scale(1.03); }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 40px; }
+      .hero__photo img { width: 210px; }
     }
 
-    /* ── Work timeline: summary rows, hover/tap to expand ── */
+    /* ══ REVIEWS BAND ══ */
+    .band {
+      background: var(--band);
+      border-top: 1px solid var(--card-rule); border-bottom: 1px solid var(--card-rule);
+      padding: 56px 0 34px; position: relative; z-index: 1;
+    }
+    .band__label {
+      text-align: center; font-family: var(--mono); font-size: 12px;
+      letter-spacing: 0.1em; color: var(--accent); margin-bottom: 34px;
+    }
+    .rev-strip {
+      display: flex; gap: 18px; overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 4px max(32px, calc((100% - 996px) / 2)) 14px;
+      scrollbar-width: none; -ms-overflow-style: none;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+    }
+    .rev-strip::-webkit-scrollbar { display: none; }
+    .rev-card {
+      flex: none; width: min(340px, 78vw); scroll-snap-align: center;
+      background: var(--white); border: 1px solid var(--card-rule);
+      border-radius: 18px; padding: 24px;
+      display: flex; flex-direction: column;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .rev-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(51, 43, 46, 0.07); }
+    .rev-card__text { font-size: 14.5px; line-height: 1.6; color: #4a4144; flex: 1; }
+    .rev-card__who {
+      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--blush);
+      font-size: 13px; color: var(--gray-2);
+    }
+    .rev-card__who b { font-weight: 700; color: var(--ink); }
+    .rev-nav { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 22px; }
+    .rev-wrap .strip-arrow, .rev-wrap .strip-arrow-left {
+      position: static; transform: none;
+      background: none; border: none; box-shadow: none;
+      font-size: 18px; color: var(--gray-2); cursor: pointer;
+      padding: 4px 12px; border-radius: 999px;
+      font-family: var(--font);
+      transition: color 0.2s, background 0.2s, opacity 0.3s;
+    }
+    .rev-wrap .strip-arrow:hover, .rev-wrap .strip-arrow-left:hover { color: var(--accent); background: var(--white); }
+    .rev-wrap.at-start .strip-arrow-left, .rev-wrap.at-end .strip-arrow { opacity: 0.3; pointer-events: none; }
+
+    /* ══ WORK TIMELINE ══ */
     .timeline { display: flex; flex-direction: column; position: relative; }
     .timeline::before {
       content: ''; position: absolute; left: 5px; top: 16px; bottom: 16px;
       width: 2px; background: var(--rule);
     }
-    .entry { position: relative; padding: 22px 0 22px 30px; border-bottom: 1px solid var(--rule); }
+    .entry { position: relative; padding: 24px 0 24px 32px; border-bottom: 1px solid var(--rule); }
     .entry:last-of-type { border-bottom: none; }
     .entry::before {
-      content: ''; position: absolute; left: 0; top: 28px; width: 12px; height: 12px;
-      border-radius: 50%; background: var(--white); border: 2px solid var(--gray-2);
+      content: ''; position: absolute; left: 0; top: 31px; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--bg); border: 2px solid var(--gray-2);
       transition: border-color 0.2s, background 0.2s; z-index: 1;
     }
-    .entry:hover::before, .entry.open::before { border-color: var(--accent); background: var(--accent-lt); }
+    .entry.open::before { border-color: var(--accent); background: var(--blush); }
     .entry__head {
       display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 16px;
       background: none; border: none; padding: 0; cursor: pointer; text-align: left;
       font-family: var(--font); -webkit-tap-highlight-color: transparent;
     }
     .entry__head:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-    .entry__headline { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
-    .entry__top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-    .entry__company { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
-    .entry__badge { font-size: 11px; font-weight: 400; color: var(--gray-2); margin-left: 6px; }
-    .entry__period { font-size: 12px; font-weight: 400; color: var(--gray-2); white-space: nowrap; }
-    .entry__role { display: block; font-size: 13px; font-weight: 400; color: var(--gray-1); }
-    .entry__summary { display: block; font-size: 13.5px; line-height: 1.6; color: var(--gray-1); margin-top: 6px; }
+    .entry__headline { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+    .entry__top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .entry__company { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+    .entry__role { font-size: 14px; color: var(--gray-1); }
+    .entry__badge {
+      font-family: var(--mono); font-size: 11px; color: #6f5d64;
+      background: var(--blush); border-radius: 999px; padding: 3px 10px;
+    }
+    .entry__period { font-family: var(--mono); font-size: 12px; color: var(--gray-2); margin-left: auto; white-space: nowrap; }
+    .entry__summary { font-size: 14px; color: var(--gray-1); line-height: 1.5; }
     .entry__plus {
-      flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; margin-top: 2px;
-      background: var(--surface); color: var(--gray-1);
+      flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; margin-top: 4px;
+      background: var(--blush); color: var(--gray-1);
       display: flex; align-items: center; justify-content: center;
       font-size: 16px; font-weight: 400; line-height: 0;
       transition: transform 0.35s var(--ease), background 0.2s, color 0.2s;
     }
-    .entry:hover .entry__plus, .entry.open .entry__plus { transform: rotate(45deg); background: var(--accent); color: #fff; }
+    .entry.open .entry__plus { transform: rotate(45deg); background: var(--accent); color: #fff; }
     .entry__details { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
-    .entry:hover .entry__details, .entry.open .entry__details, .entry:focus-within .entry__details { grid-template-rows: 1fr; }
+    .entry.open .entry__details { grid-template-rows: 1fr; }
     .entry__details-inner { overflow: hidden; }
     .entry__details-inner > *:first-child { margin-top: 18px; }
-    .entry--flat .entry__headline { gap: 4px; }
-    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .stat { background: var(--surface); border-radius: var(--radius-sm); padding: 8px 14px; text-align: center; min-width: 90px; }
-    .stat__num { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin-bottom: 3px; }
-    .stat__label { font-size: 10px; font-weight: 400; color: var(--gray-1); letter-spacing: 0.02em; text-transform: uppercase; }
-    .wins { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .wins li { font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--gray-1); padding-left: 14px; position: relative; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .stat {
+      font-family: var(--mono); font-size: 12px;
+      background: var(--blush); color: #6f5d64;
+      border-radius: 999px; padding: 6px 13px;
+    }
+    .stat b { font-weight: 500; color: var(--accent-deep); }
+    .wins { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .wins li { font-size: 14px; line-height: 1.65; color: var(--body-2); padding-left: 14px; position: relative; max-width: 760px; }
     .wins li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-    .edu { margin-top: 32px; padding: 20px; background: var(--surface); border-radius: var(--radius-lg); }
-    .edu__label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-2); margin-bottom: 10px; }
-    .edu__school { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-    .edu__detail { font-size: 13px; font-weight: 400; color: var(--gray-1); line-height: 1.6; }
-    .edu__accent { color: var(--accent); }
+    .shots { display: flex; gap: 12px; flex-wrap: wrap; }
+    .shots img {
+      width: 180px; height: 104px; object-fit: cover; object-position: top;
+      border-radius: 12px; border: 1px solid var(--card-rule); cursor: zoom-in;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .shots img:hover { transform: scale(1.04); box-shadow: 0 8px 20px rgba(51, 43, 46, 0.12); }
 
-    /* ── Hero testimonial strip ── */
-    .hero-quotes { margin-top: 28px; }
-    .quote-card {
-      flex: 0 0 auto;
-      width: min(290px, 72vw);
-      background: var(--white);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-lg);
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /* ── Education — its own card ── */
+    .edu {
+      margin-top: 44px; padding: 24px 28px;
+      background: var(--white); border: 1px solid var(--card-rule);
+      border-left: 3px solid var(--accent); border-radius: var(--radius-sm);
+    }
+    .edu__label {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .edu__school { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .edu__detail { font-size: 13.5px; color: var(--gray-1); line-height: 1.6; }
+    .edu__accent { color: var(--accent-deep); font-weight: 600; }
+
+    /* ══ WHAT I'M BUILDING ══ */
+    .build-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+    .build-main {
+      background: var(--white); border: 1px solid var(--card-rule);
+      border-radius: var(--radius-lg); padding: 28px;
+      display: flex; flex-direction: column; gap: 12px;
       transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
-      position: relative;
     }
-    .quote-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-      z-index: 1;
-    }
-    .quote-card__text {
-      font-size: 13px; font-weight: 400; line-height: 1.7;
-      color: var(--gray-1); flex: 1;
-    }
-    .quote-card__name {
-      font-size: 12px; font-weight: 600; color: var(--ink);
-    }
-    .quote-card__role {
-      font-size: 11px; font-weight: 400; color: var(--gray-2); margin-top: 1px;
-    }
-
-    /* ── Section 3 — prose style ── */
-    .now-prose {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 560px;
-    }
-    .now-prose p {
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--gray-1);
-    }
-    .now-prose p strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .now-prose p:first-child {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    /* ── Projects carousel ── */
-    .lab-strip { scroll-snap-type: x proximity; padding-bottom: 14px; }
-    .lab-card {
-      flex: 0 0 auto; width: min(430px, 84%);
-      scroll-snap-align: start;
-      display: flex; flex-direction: column; gap: 10px;
-      background: var(--white); border: 1px solid var(--rule);
-      border-radius: var(--radius-lg); padding: 18px;
-    }
-    .lab-card .phone-col { margin-top: 4px; }
-    .lab-card--cta {
-      align-items: center; justify-content: center; gap: 10px;
-      background: var(--surface); border-color: transparent;
-      text-decoration: none; min-height: 220px;
-    }
-    .lab-card--cta__big { font-family: var(--font-display); font-size: 22px; font-weight: 550; color: var(--ink); transition: color 0.15s; }
-    .lab-card--cta__sub { font-size: 12px; color: var(--gray-1); }
-    .lab-card--cta:hover .lab-card--cta__big { color: var(--accent); }
-    .teaser-cta {
-      display: inline-block; margin-top: 16px;
-      font-size: 13.5px; font-weight: 600;
-      color: var(--accent); text-decoration: none;
-    }
-    .teaser-cta:hover { text-decoration: underline; }
-
-    /* ── Entry visual — horizontal scroll strip ── */
-    .entry__visual { margin-top: 20px; }
-    .visual-strip {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 6px 4px;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .visual-strip::-webkit-scrollbar { display: none; }
-
-    .visual-card {
-      flex: 0 0 auto;
-      width: min(420px, 78vw);
-      border: 1px solid var(--rule);
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--surface);
+    .build-main:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(51, 43, 46, 0.08); }
+    .build-main__top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .build-main__name { font-size: 21px; font-weight: 700; }
+    .build-main__code { font-family: var(--mono); font-size: 12.5px; color: var(--accent); margin-left: auto; text-decoration: none; }
+    .build-main__code:hover { text-decoration: underline; }
+    .build-main__desc { font-size: 14px; color: var(--gray-1); line-height: 1.55; }
+    .build-side { display: flex; flex-direction: column; gap: 18px; }
+    .build-mini {
+      flex: 1; display: flex; flex-direction: column; gap: 6px;
+      background: var(--white); border: 1px solid var(--card-rule);
+      border-radius: var(--radius-lg); padding: 22px;
+      text-decoration: none;
       transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
-      position: relative;
     }
-    .visual-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-      z-index: 1;
+    .build-mini:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(51, 43, 46, 0.08); }
+    .build-mini__title { font-size: 17px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .build-mini__title i {
+      font-style: normal; font-family: var(--mono); font-size: 10px;
+      color: var(--live); background: var(--live-bg); border-radius: 999px; padding: 2px 8px;
     }
-    .visual-card img {
-      display: block;
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      object-position: center top;
-    }
-    .visual-card__label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--gray-2);
-      padding: 10px 14px 8px;
-      border-bottom: 1px solid var(--rule);
-      background: var(--surface);
-    }
+    .build-mini__desc { font-size: 13px; color: var(--gray-1); line-height: 1.5; flex: 1; }
+    .build-mini__go { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 4px; }
+    .build-cta { display: flex; justify-content: center; margin-top: 30px; }
+    @media (max-width: 760px) { .build-grid { grid-template-columns: 1fr; } }
 
-    /* ── Lightbox trigger ── */
-    .lb-trigger { cursor: zoom-in; display: block; width: 100%; }
-
-    /* ── GIF placeholder ── */
-    .gif-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .gif-placeholder::after {
-      content: 'Preview coming soon';
-      font-size: 11px;
-      font-family: var(--font);
-      color: var(--gray-2);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── Visual strip wrap ── */
-    .visual-strip-wrap { position: relative; }
-    .visual-strip-wrap::after {
-      content: ''; position: absolute; top: 0; right: 0;
-      width: 80px; height: 100%;
-      background: linear-gradient(to right, transparent, var(--white));
-      pointer-events: none; border-radius: 0 12px 12px 0; transition: opacity 0.3s;
-    }
-    .visual-strip-wrap.at-end::after { opacity: 0; }
-    .visual-strip-wrap::before {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 80px; height: 100%;
-      background: linear-gradient(to left, transparent, var(--white));
-      pointer-events: none; border-radius: 12px 0 0 12px; transition: opacity 0.3s;
-      opacity: 0; z-index: 1;
-    }
-    .visual-strip-wrap:not(.at-start)::before { opacity: 1; }
-    .strip-arrow, .strip-arrow-left {
-      position: absolute; top: 50%;
-      transform: translateY(-50%);
-      background: white; border: 1px solid var(--rule); border-radius: 50%;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: opacity 0.3s, transform 0.2s; z-index: 2;
-    }
-    .strip-arrow { right: 10px; }
-    .strip-arrow-left { left: 10px; }
-    .strip-arrow svg, .strip-arrow-left svg { width: 10px; height: 10px; color: var(--ink); }
-    .strip-arrow:hover { transform: translateY(-50%) scale(1.08); }
-    .strip-arrow-left:hover { transform: translateY(-50%) scale(1.08); }
-    .visual-strip-wrap.at-end .strip-arrow { opacity: 0; pointer-events: none; }
-    .visual-strip-wrap.at-start .strip-arrow-left { opacity: 0; pointer-events: none; }
+    /* ══ HUMAN STUFF ══ */
+    .human-grid { display: flex; flex-direction: column; gap: 18px; max-width: 640px; margin-bottom: 36px; }
+    .human-grid p { font-size: 17px; color: var(--body-2); line-height: 1.65; }
 
     /* ── Lightbox ── */
     #lightbox {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.82); z-index: 1000;
+      background: rgba(30, 24, 26, 0.85); z-index: 1000;
       align-items: center; justify-content: center; padding: 24px;
     }
     #lightbox.open { display: flex; }
     #lightbox img {
       max-width: 92vw; max-height: 88vh;
       border-radius: 12px; object-fit: contain;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
     }
     .lb-close {
       position: absolute; top: 16px; right: 16px;
-      background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14); border: none; border-radius: 50%;
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; color: white;
     }
     .lb-close svg { width: 12px; height: 12px; }
 
-    /* ─────────────────────────────────────────────
-       MOBILE SPLASH: show image full-screen, then morph it to stamp position
-       ───────────────────────────────────────────── */
-    .hero-splash { display: none; }
-
-    @media (max-width: 600px) {
-      body.has-splash {
-        overflow: hidden;
-        height: 100vh;
-      }
-
-      /* Hide the page until splash dismissed */
-      body.has-splash .site {
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
-      }
-
-      /* Measuring state: invisible but naturally positioned for rect queries */
-      body.splash-measuring .site {
-        opacity: 0;
-        transform: none;
-        pointer-events: none;
-        transition: none;
-      }
-
-      /* Page visible after splash */
-      body.splash-done .site {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
-      }
-
-      /* Fullscreen overlay */
-      .hero-splash {
-        display: flex;
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background: var(--white);
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        pointer-events: none;
-      }
-
-      /* Big face */
-      .hero-splash__img {
-        width: min(92vw, 520px);
-        height: auto;
-        display: block;
-        transform: translate(-110px, 0) scale(1.65);
-        transform-origin: top left;
-      }
-
-      /* Arrow down hint */
-      .hero-splash__arrow {
-        position: absolute;
-        bottom: 22px;
-        left: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.9;
-        animation: bounce 1.4s ease-in-out infinite;
-        pointer-events: none;
-      }
-      .hero-splash__arrow svg {
-        width: 22px;
-        height: 22px;
-        color: var(--gray-2);
-      }
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(8px); }
-      }
-
-    }
-
-    @media (max-width: 480px) {
-      .site { padding: 0 20px; }
-      .hero { padding: 64px 0 56px; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .reveal { transition: none !important; }
-      .hero-splash__arrow { animation: none !important; }
-      body.has-splash .site,
-      body.splash-done .site { transition: none !important; }
+      .bg-blob { animation: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- MOBILE splash overlay -->
-  <div class="hero-splash" id="heroSplash" aria-hidden="true">
-    <img src="avatar.png" alt="" class="hero-splash__img" />
-    <div class="hero-splash__arrow" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 5v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M7 13l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+  <div class="page-top">
+    <div class="bg-blob" aria-hidden="true"></div>
+
+    <nav class="nav">
+      <div class="nav__pill">
+        <img class="nav__avatar" src="nav-avatar.png" alt="" />
+        <a class="nav__name" href="index.html">Jelyn Hermosa</a>
+        <div class="nav__links">
+          <a href="#work">Work</a>
+          <a href="projects.html">Projects</a>
+          <a href="#about">About</a>
+          <a class="nav__cta" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="site">
+      <!-- ══ HERO ══ -->
+      <header class="hero">
+        <div class="hero__text">
+          <p class="hero__eyebrow reveal">SENIOR PRODUCT MANAGER · LOS ANGELES</p>
+          <h1 class="hero__name reveal reveal-d1">Hi, I'm Jelyn.</h1>
+          <p class="hero__bio reveal reveal-d2">I figure out what to build, get everyone on the same page, and make sure it ships.</p>
+          <p class="hero__thrive reveal reveal-d2">I thrive in&#32;<span class="cycle-clip" id="cycleClip"
+              ><span class="cycle-word active">the messy middle.</span
+              ><span class="cycle-word">early-stage chaos.</span
+              ><span class="cycle-word">compliance-heavy work.</span
+              ><span class="cycle-word">the cross-functional grind.</span
+              ><span class="cycle-word">the "we're figuring it out" phase.</span
+              ><span class="cycle-word">high-stakes ambiguity.</span
+            ></span></p>
+          <p class="hero__more reveal reveal-d3">I've built products across fintech, Web3, media, and nonprofit — with autonomy and a high tolerance for ambiguity.</p>
+          <div class="chips reveal reveal-d3">
+            <span class="chip">0→1 launches</span>
+            <span class="chip">fintech / crypto</span>
+            <span class="chip">regulated products</span>
+            <span class="chip">platform &amp; ecosystem</span>
+            <span class="chip">cross-functional leadership</span>
+            <span class="chip">automation</span>
+          </div>
+        </div>
+        <div class="hero__photo reveal reveal-d2">
+          <img src="jelyn.png" alt="Jelyn Hermosa" />
+        </div>
+      </header>
     </div>
   </div>
 
-  <nav class="nav">
-    <div class="nav__inner">
-      <a class="nav__name" href="index.html">Jelyn Hermosa</a>
-      <div class="nav__links">
-        <a href="#work">Work</a>
-        <a href="projects.html">Projects</a>
-        <a href="#about">About</a>
-        <a href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume</a>
+  <!-- ══ WHAT PEOPLE SAY ══ -->
+  <section class="band">
+    <p class="band__label">WHAT PEOPLE SAY</p>
+    <div class="rev-wrap visual-strip-wrap">
+      <div class="visual-strip rev-strip">
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Within a few weeks of her joining, no one was giving her directions. Largely thanks to her efforts, Eternal grew by 100× while she was here. A game-changing hire, and a consummate teammate."</p>
+          <p class="rev-card__who"><b>Derek Chiang</b><br>Founder, Eternal.gg (YC W20)</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Easily one of the best Product Managers I've worked with. She wasn't the type of PM to just assign work and disappear — during late-night releases she jumped in to help test, verify bug fixes, and keep things moving. She balances business goals with the realities of engineering, which led to better decisions and smoother execution for everyone."</p>
+          <p class="rev-card__who"><b>Jared Maloto</b><br>Lead QA Engineer</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Jelyn is, in a word, a superstar. Her executive presence inspires me. She is able to command a meeting and extract results from even the most difficult teams. Whatever Jelyn touches, she makes better for everyone involved."</p>
+          <p class="rev-card__who"><b>Nina Christiansen</b><br>Senior Manager, OnPrem</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Jelyn just makes everything easier. She's the bridge between devs and legal, compliance, vendors — and keeps everyone on the same page without anyone feeling managed. She even picked up coding to understand our world better. When leadership pushes for unrealistic timelines, she's the one who pushes back so we don't have to. Genuinely the best PM I've worked with."</p>
+          <p class="rev-card__who"><b>Manor Deshmukh</b><br>Full Stack Engineer</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Continuously surprising. She does everything well and does it fast. Regardless what task, small or big, her expertise or not, she will get it done. Positive, observant, skillful, helpful — the list goes on."</p>
+          <p class="rev-card__who"><b>Pedram Fouroutan</b><br>Senior Manager, OnPrem</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"She carries herself very well in front of the client, exhibiting clear communication skills and competency. She joined mid-way but quickly ramped up and owned one of the more complicated workstreams."</p>
+          <p class="rev-card__who"><b>Yvonne Cheng</b><br>Associate VP, OnPrem</p>
+        </div>
+
+        <div class="rev-card">
+          <p class="rev-card__text">"Such a joy to work with! She met the challenge of becoming our Development Lead head on and exceeded all expectations, implementing great processes that made our development more organized and efficient."</p>
+          <p class="rev-card__who"><b>Kayla O'Brien</b><br>Senior Consultant, OnPrem</p>
+        </div>
+
+      </div>
+      <div class="rev-nav">
+        <button class="strip-arrow-left" aria-label="Scroll left">←</button>
+        <button class="strip-arrow" aria-label="Scroll right">→</button>
       </div>
     </div>
-  </nav>
+  </section>
 
   <div class="site">
 
-    <!-- ══ HERO ══ -->
-    <section class="hero" id="hero">
-      <div class="hero__content">
+    <!-- ══ WORK ══ -->
+    <section class="section" id="work">
+      <div class="section__head reveal">
+        <span class="section__num">01</span>
+        <h2 class="section__title">Where I've worked</h2>
+        <span class="section__sub">click a role for the full story</span>
+      </div>
+      <div class="timeline reveal">
 
-        <!-- Decorative stamp above eyebrow (desktop/tablet) -->
-        <div class="hero__stamp" aria-hidden="true">
-          <img src="avatar.png" alt="" class="hero__stamp-img" />
+        <div class="entry">
+          <button class="entry__head" type="button" aria-expanded="false">
+            <span class="entry__headline">
+              <span class="entry__top">
+                <span class="entry__company">CoinFlip</span>
+                <span class="entry__role">Senior Product Manager</span>
+                <span class="entry__period">Dec 2024 — now</span>
+              </span>
+              <span class="entry__summary">Owning the roadmap across five crypto products — support tickets down 75%, onboarding completion up 50%.</span>
+            </span>
+            <span class="entry__plus" aria-hidden="true">+</span>
+          </button>
+          <div class="entry__details"><div class="entry__details-inner">
+            <div class="stats">
+              <span class="stat"><b>↓75%</b> support volume</span>
+              <span class="stat"><b>+50%</b> onboarding</span>
+              <span class="stat"><b>97%</b> early retention</span>
+              <span class="stat"><b>+7.5%</b> YoY transactions</span>
+            </div>
+            <ul class="wins">
+              <li>Owned the full product roadmap across five interconnected products — keeping momentum on immediate priorities while building new initiatives.</li>
+              <li>Built a customer portal that enabled users to see and manage their own transactions without calling support. Tickets dropped 75%.</li>
+              <li>Launched Gradual — a product that lets users automatically invest a portion of their paycheck into crypto. 97% of early users kept going.</li>
+              <li>Redesigned the account verification flow. Completion rates climbed by over 50%.</li>
+              <li>Built a crypto donation payment processor with real-time compliance checks, letting donors give to nonprofits in the currency they want.</li>
+              <li>Led a full website redesign that drove a 38% week-over-week traffic increase within days of launch.</li>
+            </ul>
+            <div class="shots">
+              <img src="website.png" alt="Website redesign" class="lb-trigger" />
+              <img src="portal.png" alt="Customer portal" class="lb-trigger" />
+              <img src="gradual.png" alt="Gradual" class="lb-trigger" />
+            </div>
+          </div></div>
         </div>
 
-        <p class="hero__eyebrow reveal">Senior Product Manager</p>
-        <h1 class="hero__name reveal reveal-d1">Jelyn Hermosa</h1>
-
-        <div class="hero__body-row">
-          <div class="hero__text">
-            <p class="hero__bio reveal reveal-d2" id="heroBio">
-              I figure out what to build, get everyone on the same page, and make sure it ships.
-              I thrive in the&#32;<span class="cycle-clip" id="cycleClip"
-                ><span class="cycle-word active">messy middle.</span
-                ><span class="cycle-word">early-stage chaos.</span
-                ><span class="cycle-word">compliance-heavy work.</span
-                ><span class="cycle-word">cross-functional grind.</span
-              >
-                <span class="cycle-word">"we're figuring it out" phase.</span
-              >
-                <span class="cycle-word">high-stakes ambiguity.</span
-                ></span>
-            </p>
-
-            <div class="hero__expand reveal reveal-d3">
-              <p class="hero__expand-body">I've built products across fintech, Web3, media, and nonprofit. I do that with autonomy and a high tolerance for ambiguity.</p>
+        <div class="entry">
+          <button class="entry__head" type="button" aria-expanded="false">
+            <span class="entry__headline">
+              <span class="entry__top">
+                <span class="entry__company">Eternal.gg</span>
+                <span class="entry__role">Chief of Staff</span>
+                <span class="entry__badge">YC W20 · acquired</span>
+                <span class="entry__period">Jul 2021 — Aug 2024</span>
+              </span>
+              <span class="entry__summary">First business hire at a YC-backed Web3 startup — the PM and ops glue while it grew 100× and revenues doubled.</span>
+            </span>
+            <span class="entry__plus" aria-hidden="true">+</span>
+          </button>
+          <div class="entry__details"><div class="entry__details-inner">
+            <div class="stats">
+              <span class="stat"><b>+20%</b> retention</span>
+              <span class="stat"><b>↓50%</b> cycle time</span>
+              <span class="stat"><b>2×</b> revenues</span>
             </div>
+            <ul class="wins">
+              <li>Acted as the team's PM, ops glue, and everything in between — owning roadmap, strategy, and org rhythm for a 10–15 person team.</li>
+              <li>Led discovery and delivery of features that brought users back more often, bumping retention up 20% and doubling revenues.</li>
+              <li>Rebuilt creator workflows from scratch, enabling the same team size to produce twice the output.</li>
+              <li>Stood up planning and documentation systems that let the team ship with more predictability under startup pressure.</li>
+            </ul>
+            <div class="shots">
+              <img src="eternal.png" alt="Eternal News" class="lb-trigger" />
+              <img src="eternal party.jpeg" alt="Community event" class="lb-trigger" />
+            </div>
+          </div></div>
+        </div>
+
+        <div class="entry">
+          <button class="entry__head" type="button" aria-expanded="false">
+            <span class="entry__headline">
+              <span class="entry__top">
+                <span class="entry__company">OnPrem Solution Partners</span>
+                <span class="entry__role">Consultant</span>
+                <span class="entry__period">Jul 2019 — Jul 2021</span>
+              </span>
+              <span class="entry__summary">Delivery and technical product lead for the Disney+ global streaming launch.</span>
+            </span>
+            <span class="entry__plus" aria-hidden="true">+</span>
+          </button>
+          <div class="entry__details"><div class="entry__details-inner">
+            <ul class="wins">
+              <li>Defined requirements for content, metadata, and distribution systems.</li>
+              <li>Built dashboards that tracked launch progress and surfaced risks.</li>
+              <li>Automated manual workflows across multiple teams, improving accuracy and decreasing manual overhead.</li>
+            </ul>
+            <div class="shots">
+              <img src="disney launch.jpeg" alt="Disney+ launch" class="lb-trigger" />
+            </div>
+          </div></div>
+        </div>
+
+        <div class="entry entry--flat">
+          <div class="entry__headline">
+            <span class="entry__top">
+              <span class="entry__company">Community Partners</span>
+              <span class="entry__role">Senior Finance Analyst</span>
+              <span class="entry__period">Jul 2013 — Jun 2019</span>
+            </span>
+            <span class="entry__summary">Ran financial systems and reporting for a $10M+ portfolio — supporting over 150 nonprofits across Los Angeles.</span>
           </div>
         </div>
 
-        <div class="chips reveal" style="margin-top:16px;">
-          <span class="chip">0→1 Launches</span>
-          <span class="chip">Platform &amp; Ecosystem</span>
-          <span class="chip">Regulated Products</span>
-          <span class="chip">Cross-functional Leadership</span>
-          <span class="chip">Fintech / Crypto</span>
-          <span class="chip">Automation</span>
-          <span class="chip">B2C &amp; B2B</span>
-        </div>
+      </div>
 
-        <div class="hero-quotes reveal">
-          <div class="visual-strip-wrap">
-            <div class="visual-strip">
-
-              <div class="quote-card">
-                <p class="quote-card__text">"Jelyn was the first business hire at Eternal. Within a few weeks of her joining, no one was giving her directions. Largely thanks to her efforts, Eternal grew by 100x while she was here. She's a game-changing operations &amp; business hire, and a consummate teammate."</p>
-                <div>
-                  <div class="quote-card__name">Derek Chiang</div>
-                  <div class="quote-card__role">Founder, Eternal.gg (YC W20)</div>
-                </div>
-              </div>
-
-              <div class="quote-card">
-                <p class="quote-card__text">"Jelyn is, in a word, a superstar. Her executive presence inspires me. She is able to command a meeting and extract results from even the most difficult teams. Whatever Jelyn touches, she makes better for everyone involved."</p>
-                <div>
-                  <div class="quote-card__name">Nina Christiansen</div>
-                  <div class="quote-card__role">Senior Manager, OnPrem</div>
-                </div>
-              </div>
-
-              <div class="quote-card">
-                <p class="quote-card__text">"Continuously surprising. She does everything well and does it fast. The greatest aspect of working with Jelyn is that regardless what task, small or big, her expertise or not, she will get it done. Jelyn is positive, observant, skillful, helpful — the list goes on and on."</p>
-                <div>
-                  <div class="quote-card__name">Pedram Fouroutan</div>
-                  <div class="quote-card__role">Senior Manager, OnPrem</div>
-                </div>
-              </div>
-
-              <div class="quote-card">
-                <p class="quote-card__text">"I've really enjoyed advising on Jelyn's projects. She carries herself very well in front of the client, exhibiting clear communication skills and competency. She joined mid-way but was able to quickly ramp up &amp; own one of the more complicated workstreams."</p>
-                <div>
-                  <div class="quote-card__name">Yvonne Cheng</div>
-                  <div class="quote-card__role">Associate VP, OnPrem</div>
-                </div>
-              </div>
-
-              <div class="quote-card">
-                <p class="quote-card__text">"Jelyn is such a joy to work with! She brings a positive, can-do attitude every day. She is an extremely fast learner and hard worker. She met the challenge of becoming our Development Lead head on and exceeded all expectations. She has implemented great processes to make our development more organized and efficient."</p>
-                <div>
-                  <div class="quote-card__name">Kayla O' Brien</div>
-                  <div class="quote-card__role">Senior Consultant, OnPrem</div>
-                </div>
-              </div>
-
-            </div>
-            <button class="strip-arrow-left" aria-label="Scroll left">
-              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="strip-arrow" aria-label="Scroll right">
-              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-        </div>
-
+      <div class="edu reveal">
+        <p class="edu__label">Education &amp; Certifications</p>
+        <p class="edu__school">UCLA — B.A. Linguistics &amp; Psychology</p>
+        <p class="edu__detail"><span class="edu__accent">Summa Cum Laude</span> &nbsp;·&nbsp; Professional Scrum Master &nbsp;·&nbsp; Business &amp; Financial Modeling &nbsp;·&nbsp; AI Agents Fundamentals</p>
       </div>
     </section>
 
-    <!-- ══ ACCORDION ══ -->
-    <div class="accordion">
-
-      <section class="section reveal" id="work">
-        <div class="section__head">
-          <span class="section__num">01</span>
-          <h2 class="section__title">Where I've worked</h2>
-          <span class="section__sub">Hover or tap a role for the full story</span>
-        </div>
-        <div class="section__content">
-            <div class="timeline">
-
-              <div class="entry">
-                <button class="entry__head" type="button" aria-expanded="false">
-                  <span class="entry__headline">
-                    <span class="entry__top"><span class="entry__company">CoinFlip</span><span class="entry__period">Dec 2024 – Present</span></span>
-                    <span class="entry__role">Senior Product Manager · Los Angeles</span>
-                    <span class="entry__summary">Owning the roadmap across five crypto products — support tickets down 75%, onboarding completion up 50%.</span>
-                  </span>
-                  <span class="entry__plus" aria-hidden="true">+</span>
-                </button>
-                <div class="entry__details"><div class="entry__details-inner">
-                <div class="stats">
-                  <div class="stat"><div class="stat__num">↓75%</div><div class="stat__label">Support volume</div></div>
-                  <div class="stat"><div class="stat__num">50%+</div><div class="stat__label">Onboarding</div></div>
-                  <div class="stat"><div class="stat__num">97%</div><div class="stat__label">Early retention</div></div>
-                  <div class="stat"><div class="stat__num">+7.5%</div><div class="stat__label">YoY transactions</div></div>
-                </div>
-                <ul class="wins">
-                  <li>Owned the full product roadmap across five interconnected products — keeping momentum on immediate priorities without letting platform drifts, and on top of building new initiatives.</li>
-                  <li>Built a customer portal that enabled users to see and manage their own transactions without calling support. Tickets dropped 75%.</li>
-                  <li>Launched Gradual — a product that lets users automatically invest a portion of their paycheck into crypto. 97% of early users kept going.</li>
-                  <li>Redesigned the account verification flow. Completion rates climbed by over 50%.</li>
-                  <li>Built a crypto donation payment processor with a fully automated system, including real-time compliance checks, that allowed donors to donate to their favorite nonprofits in the currency they want.</li>
-                  <li>Led a full website redesign that drove a 38% week-over-week traffic increase within days of launch.</li>
-                </ul>
-
-                <div class="entry__visual">
-                  <div class="visual-strip-wrap">
-                    <div class="visual-strip">
-                      <div class="visual-card">
-                        <div class="visual-card__label">Website Redesign</div>
-                        <img src="website.png" alt="Website Redesign" class="lb-trigger" />
-                      </div>
-                      <div class="visual-card">
-                        <div class="visual-card__label">Customer Portal</div>
-                        <img src="portal.png" alt="Customer Portal" class="lb-trigger" />
-                      </div>
-                      <div class="visual-card">
-                        <div class="visual-card__label">Gradual</div>
-                        <img src="gradual.png" alt="Gradual" class="lb-trigger" />
-                      </div>
-                    </div>
-
-                    <button class="strip-arrow-left" aria-label="Scroll left">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <button class="strip-arrow" aria-label="Scroll right">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                  </div>
-                </div>
-                </div></div>
-              </div>
-
-              <div class="entry">
-                <button class="entry__head" type="button" aria-expanded="false">
-                  <span class="entry__headline">
-                    <span class="entry__top"><span><span class="entry__company">Eternal.gg</span><span class="entry__badge">YC W20 · acquired by Fan Controlled Sports</span></span><span class="entry__period">Jul 2021 – Aug 2024</span></span>
-                    <span class="entry__role">Chief of Staff · Los Angeles</span>
-                    <span class="entry__summary">First business hire at a YC-backed Web3 startup — the PM and ops glue while it grew 100× and revenues doubled.</span>
-                  </span>
-                  <span class="entry__plus" aria-hidden="true">+</span>
-                </button>
-                <div class="entry__details"><div class="entry__details-inner">
-                <div class="stats">
-                  <div class="stat"><div class="stat__num">+20%</div><div class="stat__label">User retention</div></div>
-                  <div class="stat"><div class="stat__num">↓50%</div><div class="stat__label">Cycle time</div></div>
-                  <div class="stat"><div class="stat__num">2×</div><div class="stat__label">Revenues</div></div>
-                </div>
-                <ul class="wins">
-                  <li>Acted as the team's PM, ops glue, and everything in between — owning roadmap, strategy, and org rhythm for a 10–15 person team at a YC-backed Web3 startup.</li>
-                  <li>Led discovery and delivery of features that brought users back more often, bumping retention up 20%, and doubling revenues.</li>
-                  <li>Rebuilt creator workflows from scratch, enabling the same team size to produce twice the output.</li>
-                  <li>Stood up planning and documentation systems that let the team ship with more predictability under startup pressure.</li>
-                </ul>
-                <div class="entry__visual">
-                  <div class="visual-strip-wrap">
-                    <div class="visual-strip">
-                      <div class="visual-card">
-                        <div class="visual-card__label">Eternal News</div>
-                        <img src="eternal.png" alt="Eternal News" class="lb-trigger" />
-                      </div>
-                      <div class="visual-card">
-                        <div class="visual-card__label">Community Event</div>
-                        <img src="eternal party.jpeg" alt="Community Event" class="lb-trigger" />
-                      </div>
-                    </div>
-                    <button class="strip-arrow-left" aria-label="Scroll left">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <button class="strip-arrow" aria-label="Scroll right">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                  </div>
-                </div>
-                </div></div>
-              </div>
-
-              <div class="entry">
-                <button class="entry__head" type="button" aria-expanded="false">
-                  <span class="entry__headline">
-                    <span class="entry__top"><span class="entry__company">OnPrem Solution Partners</span><span class="entry__period">Jul 2019 – Jul 2021</span></span>
-                    <span class="entry__role">Consultant · Los Angeles</span>
-                    <span class="entry__summary">Delivery and technical product lead for the Disney+ global streaming launch.</span>
-                  </span>
-                  <span class="entry__plus" aria-hidden="true">+</span>
-                </button>
-                <div class="entry__details"><div class="entry__details-inner">
-                <ul class="wins">
-                  <li>Delivery and technical product lead for a global streaming launch.</li>
-                  <li>Defined requirements for content, metadata, and distribution systems. Built dashboards that tracked launch progress and surfaced risks.</li>
-                  <li>Automated manual workflows across multiple teams, improving accuracy and decreasing manual overhead.</li>
-                </ul>
-                <div class="entry__visual">
-                  <div class="visual-strip-wrap">
-                    <div class="visual-strip">
-                      <div class="visual-card">
-                        <div class="visual-card__label">Disney+ Launch</div>
-                        <img src="disney launch.jpeg" alt="Disney+ Launch" class="lb-trigger" />
-                      </div>
-                    </div>
-                    <button class="strip-arrow-left" aria-label="Scroll left">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <button class="strip-arrow" aria-label="Scroll right">
-                      <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                  </div>
-                </div>
-                </div></div>
-              </div>
-
-              <div class="entry entry--flat">
-                <div class="entry__headline">
-                  <span class="entry__top"><span class="entry__company">Community Partners</span><span class="entry__period">Jul 2013 – Jun 2019</span></span>
-                  <span class="entry__role">Senior Finance Analyst · Los Angeles</span>
-                  <span class="entry__summary">Ran financial systems and reporting for a $10M+ portfolio — supporting over 150 nonprofits across Los Angeles.</span>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="edu">
-              <p class="edu__label">Education &amp; Certifications</p>
-              <p class="edu__school">UCLA — B.A. Linguistics &amp; Psychology</p>
-              <p class="edu__detail"><span class="edu__accent">Summa Cum Laude</span> &nbsp;·&nbsp; Professional Scrum Master &nbsp;·&nbsp; Business &amp; Financial Modeling &nbsp;·&nbsp; AI Agents Fundamentals</p>
-            </div>
-        </div>
-      </section>
-
-      <section class="section reveal" id="projects">
-        <div class="section__head">
-          <span class="section__num">02</span>
-          <h2 class="section__title">What I'm building</h2>
-          <span class="section__sub">Scroll sideways — everything is playable</span>
-        </div>
-        <div class="section__content">
-          <div class="visual-strip-wrap">
-            <div class="visual-strip lab-strip">
-
-              <div class="lab-card">
-                <div class="project-card__meta">
-                  <span class="project-card__status project-card__status--wip">In progress</span>
-                  <span class="project-card__year">2026</span>
-                </div>
-                <p class="project-card__name">Fina</p>
-                <p class="project-card__desc">A personal finance app where the AI does the boring part: import a bank statement and watch it categorize itself. Net worth tracking, shared-vs-personal expense splits, savings goals, real auth with a PIN lock, and cloud sync via Supabase. In QA mode.</p>
-                <div class="demo">
-                  <p class="demo__label">Live demo — sample statement</p>
-                  <div class="fina-demo" data-fina>
-                    <div class="fina-demo__bar">
-                      <span class="fina-demo__logo">fina</span>
-                      <span class="fina-demo__tabs" data-fina-tabs>
-                        <span data-pane="dash">Dashboard</span>
-                        <span class="on" data-pane="txn">Transactions</span>
-                        <span data-pane="goals">Goals</span>
-                        <span data-pane="nw">Net worth</span>
-                      </span>
-                    </div>
-                    <div class="fina-pane on" data-fina-pane="txn">
-                      <div class="fina-demo__cta-row">
-                        <button class="fina-demo__run" type="button">Upload a statement</button>
-                        <span class="fina-demo__saved" data-fina-saved>✓ saved</span>
-                      </div>
-                      <div class="fina-demo__rows" data-fina-rows>
-                        <p class="fina-demo__empty">PDF, screenshot, or CSV — Claude reads it and builds the budget. This demo runs a sample statement, then check the other tabs.</p>
-                      </div>
-                    </div>
-                    <div class="fina-pane" data-fina-pane="dash">
-                      <div class="fina-dash">
-                        <div class="fina-donut-wrap">
-                          <svg viewBox="0 0 42 42" aria-hidden="true">
-                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#EDE8E3" stroke-width="6"/>
-                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#5A8A6A" stroke-width="6" stroke-dasharray="50 50" stroke-dashoffset="25"/>
-                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#4A7090" stroke-width="6" stroke-dasharray="31 69" stroke-dashoffset="-25"/>
-                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#B8728A" stroke-width="6" stroke-dasharray="10 90" stroke-dashoffset="-56"/>
-                            <circle cx="21" cy="21" r="15.915" fill="none" stroke="#A0784A" stroke-width="6" stroke-dasharray="9 91" stroke-dashoffset="-66"/>
-                          </svg>
-                          <div class="fina-donut-center"><b>$168.54</b><span>this month</span></div>
-                        </div>
-                        <div class="fina-dash-legend">
-                          <div><i style="background:#5A8A6A"></i>Groceries<b>$84.20</b></div>
-                          <div><i style="background:#4A7090"></i>Transport &amp; gas<b>$52.10</b></div>
-                          <div><i style="background:#B8728A"></i>Dining out<b>$16.75</b></div>
-                          <div><i style="background:#A0784A"></i>Subscriptions<b>$15.49</b></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="fina-pane" data-fina-pane="goals">
-                      <div class="fina-goal">
-                        <div class="fina-goal-wrap">
-                          <svg viewBox="0 0 120 76" aria-hidden="true">
-                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#EDE8E3" stroke-width="8" stroke-linecap="round"/>
-                            <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#5A8A6A" stroke-width="8" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="47.4"/>
-                          </svg>
-                          <div class="fina-goal-pct">71%</div>
-                        </div>
-                        <div class="fina-goal-name">Vacation fund</div>
-                        <div class="fina-goal-sub">Goals fill up as you save</div>
-                      </div>
-                    </div>
-                    <div class="fina-pane" data-fina-pane="nw">
-                      <div class="fina-nw">
-                        <svg viewBox="0 0 240 64" preserveAspectRatio="none" aria-hidden="true">
-                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12 L236 64 L0 64 Z" fill="rgba(184,114,138,0.15)"/>
-                          <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12" fill="none" stroke="#B8728A" stroke-width="2"/>
-                          <circle cx="236" cy="12" r="3" fill="#B8728A"/>
-                        </svg>
-                        <div class="fina-nw-cap"><span>Assets − liabilities, snapshot by snapshot</span><b>▲ trending up</b></div>
-                      </div>
-                    </div>
-                    <p class="fina-demo__foot">No bank logins. No subscriptions. Parsing by Claude.</p>
-                  </div>
-                </div>
-                <div class="project-card__links">
-                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/fina-finance-budget-app" target="_blank" rel="noopener">Code ↗</a>
-                </div>
-              </div>
-
-              <div class="lab-card">
-                <div class="project-card__meta">
-                  <span class="project-card__status project-card__status--live">Live</span>
-                  <span class="project-card__year">2026</span>
-                </div>
-                <p class="project-card__name">Habit Tracker</p>
-                <p class="project-card__desc">A no-account PWA with streaks, sparklines, and confetti. This is the real app — go ahead.</p>
-                <div class="phone-col">
-                  <div class="phone phone--sm">
-                    <iframe src="https://lilnoobie.github.io/habit-tracker/" title="Live preview of the Habit Tracker" loading="lazy"></iframe>
-                  </div>
-                  <span class="phone-col__hint">tap around, it's real</span>
-                </div>
-                <div class="project-card__links">
-                  <a class="project-card__link" href="https://lilnoobie.github.io/habit-tracker/" target="_blank" rel="noopener">Open full screen ↗</a>
-                </div>
-              </div>
-
-              <div class="lab-card">
-                <div class="project-card__meta">
-                  <span class="project-card__status">Shipped</span>
-                  <span class="project-card__year">Early-AI era</span>
-                </div>
-                <p class="project-card__name">Blackjack Card Counter Trainer</p>
-                <p class="project-card__desc">A terminal trainer for keeping the Hi-Lo count. Built with day-one ChatGPT, back when it was more enthusiasm than accuracy.</p>
-                <div class="demo">
-                  <p class="demo__label">Try it — what's this card worth?</p>
-                  <div class="bj">
-                    <div class="bj-card" id="bjCard" aria-live="polite"><span id="bjRank">?</span><span id="bjSuit"></span></div>
-                    <div class="bj-right">
-                      <div class="bj-btns">
-                        <button class="bj-btn" data-v="-1" type="button">−1</button>
-                        <button class="bj-btn" data-v="0" type="button">0</button>
-                        <button class="bj-btn" data-v="1" type="button">+1</button>
-                      </div>
-                      <p class="bj-feedback" id="bjFeedback">Hi-Lo: 2–6 is +1, 7–9 is 0, 10–A is −1</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-card__links">
-                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/blackjack-card-counter" target="_blank" rel="noopener">Code ↗</a>
-                </div>
-              </div>
-
-              <div class="lab-card">
-                <div class="project-card__meta">
-                  <span class="project-card__status">Shipped</span>
-                  <span class="project-card__year">Pre-AI era</span>
-                </div>
-                <p class="project-card__name">Tarot Reader</p>
-                <p class="project-card__desc">Three cards in your terminal. Every line typed by hand — no AI, just vibes and Node.js.</p>
-                <div class="demo">
-                  <p class="demo__label">Your fortune awaits</p>
-                  <div class="tarot">
-                    <button class="tarot-btn" id="tarotBtn" type="button">Draw a card</button>
-                    <p class="tarot-result" id="tarotResult" aria-live="polite"></p>
-                  </div>
-                </div>
-                <div class="project-card__links">
-                  <a class="project-card__link project-card__link--muted" href="https://github.com/LilNoobie/Tarot-Reader" target="_blank" rel="noopener">Code ↗</a>
-                </div>
-              </div>
-
-              <a class="lab-card lab-card--cta" href="projects.html">
-                <span class="lab-card--cta__big">The lab →</span>
-                <span class="lab-card--cta__sub">All projects, live demos &amp; the archive</span>
-              </a>
-
-            </div>
-            <button class="strip-arrow-left" aria-label="Scroll left">
-              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M7 2l-4 3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="strip-arrow" aria-label="Scroll right">
-              <svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <a class="teaser-cta" href="projects.html">Explore the lab →</a>
-        </div>
-      </section>
-
-      <section class="section reveal" id="about">
-        <div class="section__head">
-          <span class="section__num">03</span>
-          <h2 class="section__title">A bit more about me</h2>
-          <span class="section__sub">The human stuff</span>
-        </div>
-        <div class="section__content">
-            <div class="now-prose">
-              <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
-              <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
-            </div>
-        </div>
-      </section>
-
-    </div>
-
-    <footer class="footer reveal">
-      <div class="footer__row">
-        <a class="footer__link" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
-        <span class="footer__dot"></span>
-        <a class="footer__link" href="tel:5039649684">503.964.9684</a>
-        <span class="footer__dot"></span>
-        <a class="footer__link" href="https://linkedin.com/in/jelynhermosa" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <span class="footer__dot"></span>
-        <a class="footer__link" href="https://github.com/LilNoobie" target="_blank" rel="noopener">GitHub ↗</a>
-        <span class="footer__dot"></span>
-        <a class="footer__link" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
+    <!-- ══ WHAT I'M BUILDING ══ -->
+    <section class="section" id="projects">
+      <div class="section__head reveal">
+        <span class="section__num">02</span>
+        <h2 class="section__title">What I'm building</h2>
+        <span class="section__sub">the big one is playable →</span>
       </div>
-      <div class="footer__note">Made with Claude Code, ChatGPT, and some coffee.</div>
-    </footer>
+
+      <div class="build-grid reveal">
+        <div class="build-main">
+          <div class="build-main__top">
+            <span class="project-card__status project-card__status--wip">In progress · 2026</span>
+            <span class="build-main__name">Fina</span>
+            <a class="build-main__code" href="https://github.com/LilNoobie/fina-finance-budget-app" target="_blank" rel="noopener">Code ↗</a>
+          </div>
+          <p class="build-main__desc">A personal finance app where the AI does the boring part: import a bank statement and watch it categorize itself. Net worth tracking, shared-vs-personal expense splits, savings goals, real auth with a PIN lock, and cloud sync via Supabase. In QA mode.</p>
+          <div class="demo">
+            <p class="demo__label">Live demo — sample statement</p>
+            <div class="fina-demo" data-fina>
+              <div class="fina-demo__bar">
+                <span class="fina-demo__logo">fina</span>
+                <span class="fina-demo__tabs" data-fina-tabs>
+                  <span data-pane="dash">Dashboard</span>
+                  <span class="on" data-pane="txn">Transactions</span>
+                  <span data-pane="goals">Goals</span>
+                  <span data-pane="nw">Net worth</span>
+                </span>
+              </div>
+              <div class="fina-pane on" data-fina-pane="txn">
+                <div class="fina-demo__cta-row">
+                  <button class="fina-demo__run" type="button">Upload a statement</button>
+                  <span class="fina-demo__saved" data-fina-saved>✓ saved</span>
+                </div>
+                <div class="fina-demo__rows" data-fina-rows>
+                  <p class="fina-demo__empty">PDF, screenshot, or CSV — Claude reads it and builds the budget. This demo runs a sample statement, then check the other tabs.</p>
+                </div>
+              </div>
+              <div class="fina-pane" data-fina-pane="dash">
+                <div class="fina-dash">
+                  <div class="fina-donut-wrap">
+                    <svg viewBox="0 0 42 42" aria-hidden="true">
+                      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#EDE8E3" stroke-width="6"/>
+                      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#5A8A6A" stroke-width="6" stroke-dasharray="50 50" stroke-dashoffset="25"/>
+                      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#4A7090" stroke-width="6" stroke-dasharray="31 69" stroke-dashoffset="-25"/>
+                      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#B8728A" stroke-width="6" stroke-dasharray="10 90" stroke-dashoffset="-56"/>
+                      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#A0784A" stroke-width="6" stroke-dasharray="9 91" stroke-dashoffset="-66"/>
+                    </svg>
+                    <div class="fina-donut-center"><b>$168.54</b><span>this month</span></div>
+                  </div>
+                  <div class="fina-dash-legend">
+                    <div><i style="background:#5A8A6A"></i>Groceries<b>$84.20</b></div>
+                    <div><i style="background:#4A7090"></i>Transport &amp; gas<b>$52.10</b></div>
+                    <div><i style="background:#B8728A"></i>Dining out<b>$16.75</b></div>
+                    <div><i style="background:#A0784A"></i>Subscriptions<b>$15.49</b></div>
+                  </div>
+                </div>
+              </div>
+              <div class="fina-pane" data-fina-pane="goals">
+                <div class="fina-goal">
+                  <div class="fina-goal-wrap">
+                    <svg viewBox="0 0 120 76" aria-hidden="true">
+                      <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#EDE8E3" stroke-width="8" stroke-linecap="round"/>
+                      <path d="M 8 70 A 52 52 0 0 1 112 70" fill="none" stroke="#5A8A6A" stroke-width="8" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="47.4"/>
+                    </svg>
+                    <div class="fina-goal-pct">71%</div>
+                  </div>
+                  <div class="fina-goal-name">Vacation fund</div>
+                  <div class="fina-goal-sub">Goals fill up as you save</div>
+                </div>
+              </div>
+              <div class="fina-pane" data-fina-pane="nw">
+                <div class="fina-nw">
+                  <svg viewBox="0 0 240 64" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12 L236 64 L0 64 Z" fill="rgba(184,114,138,0.15)"/>
+                    <path d="M0 46 L34 42 L68 48 L102 36 L136 33 L170 24 L204 18 L236 12" fill="none" stroke="#B8728A" stroke-width="2"/>
+                    <circle cx="236" cy="12" r="3" fill="#B8728A"/>
+                  </svg>
+                  <div class="fina-nw-cap"><span>Assets − liabilities, snapshot by snapshot</span><b>▲ trending up</b></div>
+                </div>
+              </div>
+              <p class="fina-demo__foot">No bank logins. No subscriptions. Parsing by Claude.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="build-side">
+          <a class="build-mini" href="projects.html">
+            <span class="build-mini__title">Habit Tracker <i>LIVE</i></span>
+            <span class="build-mini__desc">Inspired by the Grease-the-Groove method and my determination to get 5 pull-ups. A PWA that helps you mindlessly keep track of your habits.</span>
+            <span class="build-mini__go">Play with the real app →</span>
+          </a>
+          <a class="build-mini" href="projects.html">
+            <span class="build-mini__title">Blackjack Trainer</span>
+            <span class="build-mini__desc">Once upon a time, I wanted to learn how to count cards in Blackjack.</span>
+            <span class="build-mini__go">Try the drill →</span>
+          </a>
+          <a class="build-mini" href="projects.html">
+            <span class="build-mini__title">Tarot Reader</span>
+            <span class="build-mini__desc">Draw a card. Warning: coded before AI.</span>
+            <span class="build-mini__go">Get a fortune →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="build-cta reveal">
+        <a class="pill-btn pill-btn--dark" href="projects.html">Explore the lab — all projects &amp; live demos →</a>
+      </div>
+    </section>
+
+    <!-- ══ ABOUT ══ -->
+    <section class="section" id="about">
+      <div class="section__head reveal">
+        <span class="section__num">03</span>
+        <h2 class="section__title">The human stuff</h2>
+      </div>
+      <div class="human-grid reveal">
+        <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
+        <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
+      </div>
+      <div class="contact-pills reveal">
+        <a class="pill-btn pill-btn--dark" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
+        <a class="pill-btn" href="https://linkedin.com/in/jelynhermosa" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="pill-btn" href="https://github.com/LilNoobie" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="pill-btn" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
+      </div>
+    </section>
+
+    <footer class="footer">Made with Claude Code, ChatGPT, and some coffee.</footer>
 
   </div>
 
   <script>
   /* ══ WORD CYCLE ══════════════════════════════════════════════════ */
   function initCycle() {
-    const bio   = document.getElementById('heroBio');
-    const clip  = document.getElementById('cycleClip');
-    if (!bio || !clip) return;
-
+    const clip = document.getElementById('cycleClip');
+    if (!clip) return;
+    const host = clip.closest('.hero__thrive');
     const words = Array.from(clip.querySelectorAll('.cycle-word'));
     if (!words.length) return;
 
-    const cs       = window.getComputedStyle(bio);
-    const fontSize = cs.fontSize;
-    const fontFamily = cs.fontFamily;
-
+    const cs = window.getComputedStyle(host);
     const probe = document.createElement('span');
     Object.assign(probe.style, {
-      visibility:  'hidden',
-      position:    'fixed',
-      top:         '-9999px',
-      left:        '-9999px',
-      whiteSpace:  'nowrap',
-      fontFamily:  fontFamily,
-      fontSize:    fontSize,
-      fontWeight:  '600',
-      lineHeight:  '1',
+      visibility: 'hidden', position: 'fixed', top: '-9999px', left: '-9999px',
+      whiteSpace: 'nowrap', fontFamily: cs.fontFamily, fontSize: cs.fontSize,
+      fontWeight: '600', lineHeight: '1',
     });
     document.body.appendChild(probe);
 
@@ -968,7 +634,7 @@
     document.body.removeChild(probe);
 
     clip.style.width = Math.ceil(maxW) + 4 + 'px';
-    words.forEach(w => { w.style.fontSize = fontSize; });
+    words.forEach(w => { w.style.fontSize = cs.fontSize; });
 
     let cur = 0;
     setInterval(() => {
@@ -980,7 +646,6 @@
       words[cur].classList.add('active');
     }, 2800);
   }
-
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(initCycle);
   } else {
@@ -995,7 +660,7 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
 
-  /* ── Visual strip scroll arrows ── */
+  /* ══ STRIP ARROWS (reviews) ═════════════════════════════════════ */
   document.querySelectorAll('.visual-strip-wrap').forEach(function(wrap) {
     var strip      = wrap.querySelector('.visual-strip');
     var arrowRight = wrap.querySelector('.strip-arrow');
@@ -1012,7 +677,7 @@
     checkPos();
     function stepSize() {
       var card = strip.firstElementChild;
-      return card ? card.getBoundingClientRect().width + 10 : 300;
+      return card ? card.getBoundingClientRect().width + 18 : 340;
     }
     if (arrowRight) arrowRight.addEventListener('click', function() {
       strip.scrollBy({ left: stepSize(), behavior: 'smooth' });
@@ -1022,127 +687,8 @@
     });
   });
 
-  /* ══ MOBILE SPLASH: scroll-driven morph to stamp ═════════════════ */
-  (function () {
-    var splash  = document.getElementById('heroSplash');
-    if (!splash) return;
-    if (window.getComputedStyle(splash).display === 'none') return;
-
-    var splashImg = splash.querySelector('.hero-splash__img');
-    var stampEl   = document.querySelector('.hero__stamp');
-    var stampImg  = document.querySelector('.hero__stamp-img');
-    var siteEl    = document.querySelector('.site');
-    if (!splashImg || !stampEl || !siteEl) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      splash.remove();
-      return;
-    }
-
-    // Lock scroll immediately so user can't scroll before init
-    document.body.classList.add('has-splash');
-
-    function run() {
-      // ── Measure splash image visual rect (getBoundingClientRect accounts for CSS transform) ──
-      var SR = splashImg.getBoundingClientRect();
-
-      // ── Measure stamp: keep site invisible via inline style, then remove has-splash ──
-      siteEl.style.opacity   = '0';
-      siteEl.style.transform = 'none';
-      siteEl.style.transition = 'none';
-      document.body.classList.remove('has-splash');
-      document.body.offsetHeight; // flush layout so stamp is at natural position
-
-      // stampImg has transform: translate(-100px) so its rect reflects that shift.
-      // Use that for left/top; use the container for width/height (it clips the img).
-      var imgR = stampImg.getBoundingClientRect();
-      var elR  = stampEl.getBoundingClientRect();
-      var TR   = { left: imgR.left, top: elR.top, width: elR.width, height: elR.height };
-
-      // ── Create fly image — the only visible copy of the avatar during the morph ──
-      var fly = document.createElement('img');
-      fly.src = splashImg.src;
-      fly.setAttribute('aria-hidden', 'true');
-      fly.style.cssText =
-        'position:fixed' +
-        ';left:'   + SR.left   + 'px' +
-        ';top:'    + SR.top    + 'px' +
-        ';width:'  + SR.width  + 'px' +
-        ';height:' + SR.height + 'px' +
-        ';margin:0;padding:0;border:none' +
-        ';object-fit:cover;object-position:center top' +
-        ';z-index:9999;pointer-events:none' +
-        ';will-change:left,top,width,height';
-      document.body.appendChild(fly);
-
-      splashImg.style.opacity   = '0'; // hide original (fly replaces it)
-      stampImg.style.opacity    = '0'; // hide stamp (fly will land here)
-      stampImg.style.transition = 'none';
-
-      // ── Scroll-driven animation ──
-      var RANGE = 180;
-      var done  = false;
-      var raf   = null;
-
-      function lerp(a, b, t) { return a + (b - a) * t; }
-      function easeOut(t)     { return 1 - Math.pow(1 - t, 3); }
-      function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-
-      function update() {
-        raf = null;
-        if (done) return;
-
-        var S  = window.scrollY;
-        var p  = clamp(S / RANGE, 0, 1);
-        var ep = easeOut(p);
-
-        // Stamp's viewport-top moves up as the page scrolls
-        var tTop = TR.top - S;
-
-        fly.style.left   = lerp(SR.left,   TR.left,   ep) + 'px';
-        fly.style.top    = lerp(SR.top,    tTop,      ep) + 'px';
-        fly.style.width  = lerp(SR.width,  TR.width,  ep) + 'px';
-        fly.style.height = lerp(SR.height, TR.height, ep) + 'px';
-
-        // White bg fades out in the first half of scroll
-        splash.style.opacity = clamp(1 - p * 2, 0, 1);
-        // Page content fades in (delayed slightly)
-        siteEl.style.opacity = clamp((p - 0.1) / 0.7, 0, 1);
-
-        if (p >= 1) {
-          done = true;
-          window.removeEventListener('scroll', onScroll, { passive: true });
-          stampImg.style.transition = 'opacity 80ms ease';
-          stampImg.style.opacity    = '1';
-          fly.remove();
-          splash.remove();
-          siteEl.style.opacity    = '';
-          siteEl.style.transform  = '';
-          siteEl.style.transition = '';
-        }
-      }
-
-      function onScroll() {
-        if (!raf) raf = requestAnimationFrame(update);
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      update();
-    }
-
-    // Wait for image to load so getBoundingClientRect returns real dimensions
-    if (splashImg.complete && splashImg.naturalHeight > 0) {
-      run();
-    } else {
-      // Fallback: if image never loads within 4s, just show the page
-      var bail = setTimeout(function () { splash.remove(); document.body.classList.remove('has-splash'); }, 4000);
-      splashImg.addEventListener('load', function () { clearTimeout(bail); run(); }, { once: true });
-    }
-  })();
-
   /* ══ LIGHTBOX ════════════════════════════════════════════════════ */
   (function () {
-    // Query lazily — #lightbox is parsed after this script tag
     function lb()    { return document.getElementById('lightbox'); }
     function lbImg() { return document.getElementById('lbImg'); }
 
@@ -1154,7 +700,6 @@
       el.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function close() {
       var el = lb(), img = lbImg();
       if (!el) return;
@@ -1162,22 +707,19 @@
       if (img) img.src = '';
       document.body.style.overflow = '';
     }
-
     document.addEventListener('click', function (e) {
-      // Open on card image click
       var trigger = e.target.closest('.lb-trigger');
       if (trigger) { open(trigger.src, trigger.alt); return; }
-      // Close on backdrop or × button
       var el = lb();
       if (!el || !el.classList.contains('open')) return;
       if (e.target === el || e.target.closest('.lb-close')) close();
     });
-
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
   })();
   </script>
+  <script src="demos.js"></script>
 
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
     <button class="lb-close" aria-label="Close">
@@ -1186,6 +728,5 @@
     <img id="lbImg" src="" alt="" />
   </div>
 
-  <script src="demos.js"></script>
 </body>
 </html>
