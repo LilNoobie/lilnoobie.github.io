@@ -84,10 +84,11 @@
       text-align: center; font-family: var(--mono); font-size: 12px;
       letter-spacing: 0.1em; color: var(--accent); margin-bottom: 34px;
     }
+    .rev-wrap { max-width: 880px; margin: 0 auto; }
     .rev-strip {
       display: flex; gap: 18px; overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 4px max(32px, calc((100% - 816px) / 2)) 14px;
+      padding: 4px 32px 14px;
       scrollbar-width: none; -ms-overflow-style: none;
       -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
@@ -228,22 +229,8 @@
     @media (max-width: 760px) { .build-grid { grid-template-columns: 1fr; } }
 
     /* ══ HUMAN STUFF ══ */
-    .human-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; margin-bottom: 36px; }
-    .human-grid { display: flex; flex-direction: column; gap: 18px; max-width: 640px; }
+    .human-grid { display: flex; flex-direction: column; gap: 18px; max-width: 640px; margin-bottom: 36px; }
     .human-grid p { font-size: 17px; color: var(--body-2); line-height: 1.65; }
-    .now-card {
-      background: var(--white); border: 1px solid var(--card-rule);
-      border-radius: var(--radius-lg); padding: 22px;
-      display: flex; flex-direction: column; gap: 15px;
-    }
-    .now-card__label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em; color: var(--accent); }
-    .now-row { display: flex; gap: 12px; align-items: flex-start; }
-    .now-row > span { font-size: 20px; line-height: 1.2; }
-    .now-row b { display: block; font-size: 14px; color: var(--ink); }
-    .now-row i { font-style: normal; font-size: 12px; color: var(--gray-2); }
-    .now-bar { margin-top: 7px; width: 150px; height: 6px; border-radius: 999px; background: var(--blush); overflow: hidden; }
-    .now-bar span { display: block; width: 80%; height: 100%; border-radius: 999px; background: var(--accent); }
-    @media (max-width: 700px) { .human-wrap { grid-template-columns: 1fr; } }
 
     /* ── UCLA confetti (education card hover) ── */
     .edu-confetti {
@@ -508,7 +495,6 @@
       <div class="section__head reveal">
         <span class="section__num">02</span>
         <h2 class="section__title">What I'm building</h2>
-        <span class="section__sub">the Fina demo is real — click around</span>
       </div>
 
       <div class="build-grid reveal">
@@ -618,17 +604,9 @@
         <span class="section__num">03</span>
         <h2 class="section__title">The human stuff</h2>
       </div>
-      <div class="human-wrap reveal">
-        <div class="human-grid">
-          <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week.</p>
-          <p>I also love light mode. (This site is proof.)</p>
-        </div>
-        <div class="now-card">
-          <p class="now-card__label">CURRENTLY</p>
-          <div class="now-row"><span>🚑</span><div><b>Licensed EMT</b><i>officially, as of this year</i></div></div>
-          <div class="now-row"><span>🎧</span><div><b>Learned to DJ</b><i>also this year</i></div></div>
-          <div class="now-row"><span>💪</span><div><b>Five pull-ups</b><i>almost there</i><div class="now-bar"><span></span></div></div></div>
-        </div>
+      <div class="human-grid reveal">
+        <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
+        <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode. (This site is proof.)</p>
       </div>
       <div class="contact-pills reveal">
         <a class="pill-btn pill-btn--dark" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
