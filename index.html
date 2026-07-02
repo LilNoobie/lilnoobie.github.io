@@ -61,18 +61,24 @@
     .cycle-word.exit { opacity: 0; transform: translateY(-110%); }
     .hero__more { margin-top: 14px; font-size: 16px; color: var(--gray-1); line-height: 1.6; max-width: 560px; }
     .hero .chips { margin-top: 30px; }
-    .hero__photo { justify-self: center; }
+    .hero__photo { justify-self: center; overflow: hidden; padding: 20px; margin: -20px; }
     .hero__photo img {
       width: 260px; display: block;
       filter: drop-shadow(0 12px 20px rgba(51, 43, 46, 0.14));
       transform: rotate(2deg);
-      transition: transform 0.3s var(--ease);
+      transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
-    .hero__photo:hover img { transform: rotate(-2deg) scale(1.03); }
+    /* shy: she ducks down behind the edge — just forehead and eyes peeking over */
+    .hero__photo.shy img { transform: translateY(66%) rotate(-9deg); }
+    @media (max-width: 560px) {
+      .entry__top { gap: 2px 14px; }
+      .entry__period { flex-basis: 100%; order: 2; margin-left: 0; }
+      .entry__role, .entry__badge { flex-basis: 100%; order: 3; }
+    }
     @media (max-width: 760px) {
       .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 40px; }
       .hero__photo img { width: 210px; }
-      .cycle-clip { display: block; margin-left: 0; max-width: 100%; }
+      .cycle-clip { display: block; margin-left: 0; max-width: 100%; top: 0 !important; }
     }
 
     /* ══ REVIEWS BAND ══ */
@@ -649,6 +655,22 @@
     clip.style.width = Math.ceil(maxW) + 4 + 'px';
     words.forEach(w => { w.style.fontSize = cs.fontSize; });
 
+    // Calibrate: an empty inline-block's bottom edge sits exactly on the baseline,
+    // so one marker in the sentence and one inside the word give the true offset.
+    if (getComputedStyle(clip).display !== 'block') {
+      const mark = () => {
+        const i = document.createElement('i');
+        i.style.cssText = 'display:inline-block;width:0;height:0;padding:0;margin:0;';
+        return i;
+      };
+      const m1 = mark(), m2 = mark();
+      clip.parentNode.insertBefore(m1, clip);
+      words[0].appendChild(m2);
+      const gap = m2.getBoundingClientRect().bottom - m1.getBoundingClientRect().bottom;
+      m1.remove(); m2.remove();
+      if (Math.abs(gap) > 0.05) clip.style.top = (-gap).toFixed(2) + 'px';
+    }
+
     let cur = 0;
     setInterval(() => {
       const prev = cur;
@@ -699,6 +721,37 @@
       strip.scrollBy({ left: -stepSize(), behavior: 'smooth' });
     });
   });
+
+  /* ══ SHY PHOTO ══════════════════════════════════════════════════ */
+  (function () {
+    var wrap = document.querySelector('.hero__photo');
+    if (!wrap) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function comeBack() { wrap.classList.remove('shy'); }
+
+    if (hasHover) {
+      wrap.addEventListener('mouseenter', function () {
+        if (wrap.classList.contains('shy')) return;
+        wrap.classList.add('shy');
+        // once she's hidden, the next mouse movement coaxes her back out
+        setTimeout(function () {
+          document.addEventListener('mousemove', comeBack, { once: true });
+        }, 650);
+      });
+    } else {
+      // touch: tap the photo to make her hide, tap anywhere to bring her back
+      wrap.addEventListener('click', function () {
+        if (wrap.classList.contains('shy')) return;
+        wrap.classList.add('shy');
+        setTimeout(function () {
+          document.addEventListener('click', comeBack, { once: true });
+        }, 450);
+      });
+    }
+  })();
 
   /* ══ UCLA CONFETTI ══════════════════════════════════════════════ */
   (function () {
