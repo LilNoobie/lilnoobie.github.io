@@ -87,7 +87,7 @@
     .rev-strip {
       display: flex; gap: 18px; overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 4px max(32px, calc((100% - 996px) / 2)) 14px;
+      padding: 4px max(32px, calc((100% - 816px) / 2)) 14px;
       scrollbar-width: none; -ms-overflow-style: none;
       -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
@@ -132,7 +132,7 @@
       border-radius: 50%; background: var(--bg); border: 2px solid var(--gray-2);
       transition: border-color 0.2s, background 0.2s; z-index: 1;
     }
-    .entry.open::before { border-color: var(--accent); background: var(--blush); }
+    .entry:hover::before, .entry.open::before { border-color: var(--accent); background: var(--blush); }
     .entry__head {
       display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 16px;
       background: none; border: none; padding: 0; cursor: pointer; text-align: left;
@@ -181,6 +181,7 @@
 
     /* ── Education — its own card ── */
     .edu {
+      position: relative; overflow: hidden;
       margin-top: 44px; padding: 24px 28px;
       background: var(--white); border: 1px solid var(--card-rule);
       border-left: 3px solid var(--accent); border-radius: var(--radius-sm);
@@ -227,8 +228,33 @@
     @media (max-width: 760px) { .build-grid { grid-template-columns: 1fr; } }
 
     /* ══ HUMAN STUFF ══ */
-    .human-grid { display: flex; flex-direction: column; gap: 18px; max-width: 640px; margin-bottom: 36px; }
+    .human-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; margin-bottom: 36px; }
+    .human-grid { display: flex; flex-direction: column; gap: 18px; max-width: 640px; }
     .human-grid p { font-size: 17px; color: var(--body-2); line-height: 1.65; }
+    .now-card {
+      background: var(--white); border: 1px solid var(--card-rule);
+      border-radius: var(--radius-lg); padding: 22px;
+      display: flex; flex-direction: column; gap: 15px;
+    }
+    .now-card__label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em; color: var(--accent); }
+    .now-row { display: flex; gap: 12px; align-items: flex-start; }
+    .now-row > span { font-size: 20px; line-height: 1.2; }
+    .now-row b { display: block; font-size: 14px; color: var(--ink); }
+    .now-row i { font-style: normal; font-size: 12px; color: var(--gray-2); }
+    .now-bar { margin-top: 7px; width: 150px; height: 6px; border-radius: 999px; background: var(--blush); overflow: hidden; }
+    .now-bar span { display: block; width: 80%; height: 100%; border-radius: 999px; background: var(--accent); }
+    @media (max-width: 700px) { .human-wrap { grid-template-columns: 1fr; } }
+
+    /* ── UCLA confetti (education card hover) ── */
+    .edu-confetti {
+      position: absolute; top: -12px; width: 7px; height: 11px;
+      border-radius: 2px; pointer-events: none;
+      animation: eduFall linear forwards;
+    }
+    @keyframes eduFall {
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to   { transform: translateY(150px) rotate(340deg); opacity: 0; }
+    }
 
     /* ── Lightbox ── */
     #lightbox {
@@ -266,7 +292,7 @@
         <img class="nav__avatar" src="nav-avatar.png" alt="" />
         <a class="nav__name" href="index.html">Jelyn Hermosa</a>
         <div class="nav__links">
-          <a href="#work">Work</a>
+          <a href="#">Home</a>
           <a href="projects.html">Projects</a>
           <a href="#about">About</a>
           <a class="nav__cta" href="resume.pdf" download="Jelyn Hermosa — Resume.pdf">Resume ↓</a>
@@ -482,7 +508,7 @@
       <div class="section__head reveal">
         <span class="section__num">02</span>
         <h2 class="section__title">What I'm building</h2>
-        <span class="section__sub">the big one is playable →</span>
+        <span class="section__sub">the Fina demo is real — click around</span>
       </div>
 
       <div class="build-grid reveal">
@@ -592,9 +618,17 @@
         <span class="section__num">03</span>
         <h2 class="section__title">The human stuff</h2>
       </div>
-      <div class="human-grid reveal">
-        <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
-        <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
+      <div class="human-wrap reveal">
+        <div class="human-grid">
+          <p>This year I got officially licensed as an EMT and learned to DJ. Now climbing my way to five pull-ups (almost there!)</p>
+          <p>When I'm offline, I'm usually playing League, building things with AI, or deep in whatever rabbit hole has my attention that week. I also love light mode.</p>
+        </div>
+        <div class="now-card">
+          <p class="now-card__label">CURRENTLY</p>
+          <div class="now-row"><span>🚑</span><div><b>Licensed EMT</b><i>new this year</i></div></div>
+          <div class="now-row"><span>🎧</span><div><b>Learning to DJ</b><i>also new this year</i></div></div>
+          <div class="now-row"><span>💪</span><div><b>Five pull-ups</b><i>almost there</i><div class="now-bar"><span></span></div></div></div>
+        </div>
       </div>
       <div class="contact-pills reveal">
         <a class="pill-btn pill-btn--dark" href="mailto:jelyn.t.hermosa@gmail.com">jelyn.t.hermosa@gmail.com</a>
@@ -686,6 +720,30 @@
       strip.scrollBy({ left: -stepSize(), behavior: 'smooth' });
     });
   });
+
+  /* ══ UCLA CONFETTI ══════════════════════════════════════════════ */
+  (function () {
+    var edu = document.querySelector('.edu');
+    if (!edu) return;
+    var cooling = false;
+    edu.addEventListener('mouseenter', function () {
+      if (cooling) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      cooling = true;
+      setTimeout(function () { cooling = false; }, 1400);
+      var colors = ['#2774AE', '#FFD100'];
+      for (var i = 0; i < 16; i++) {
+        var c = document.createElement('i');
+        c.className = 'edu-confetti';
+        c.style.left = (2 + Math.random() * 96) + '%';
+        c.style.background = colors[i % 2];
+        c.style.animationDuration = (0.9 + Math.random() * 0.8) + 's';
+        c.style.animationDelay = (Math.random() * 0.3) + 's';
+        c.addEventListener('animationend', function () { this.remove(); });
+        edu.appendChild(c);
+      }
+    });
+  })();
 
   /* ══ LIGHTBOX ════════════════════════════════════════════════════ */
   (function () {

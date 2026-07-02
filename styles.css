@@ -18,7 +18,7 @@ html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: sm
 body { background: var(--bg); color: var(--ink); font-family: var(--font); min-height: 100vh; overflow-x: hidden; }
 ::selection { background: var(--blush); }
 
-.site { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+.site { max-width: 880px; margin: 0 auto; padding: 0 32px; }
 @media (max-width: 480px) { .site { padding: 0 20px; } }
 
 /* ── Scroll reveal ── */
